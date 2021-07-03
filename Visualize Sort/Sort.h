@@ -13,6 +13,7 @@ public:
 	static void CockTailSort(ElemList<ElemType>& list);
 	static void QuickSort(ElemList<ElemType>& list);
 	static void StraightInsertSort(ElemList<ElemType>& list);
+	static void BinaryInsertSort(ElemList<ElemType>& list);
 };
 template <class ElemType>
 void Sort<ElemType>::QuickSort(ElemList<ElemType>& list, int low, int high)
@@ -125,9 +126,10 @@ void Sort<ElemType>::CockTailSort(ElemList<ElemType>& list)
 				isSwaped = true;
 			}
 		}
+		list.HideRange(i, list.GetLength() - i);
+		list.ShowRange(i, list.GetLength() - i - 1);
 		if (!isSwaped)
 		{
-			list.HideRange(i, list.GetLength() - i);
 			break;
 		}
 		isSwaped = false;
@@ -143,7 +145,7 @@ void Sort<ElemType>::CockTailSort(ElemList<ElemType>& list)
 				isSwaped = true;
 			}
 		}
-		list.HideRange(i, list.GetLength() - i);
+		list.HideRange(i, list.GetLength() - i - 1);
 		if (!isSwaped)
 		{
 			break;
@@ -160,7 +162,7 @@ void Sort<ElemType>::StraightInsertSort(ElemList<ElemType>& list)
 {
 	for (int i = 1; i < list.GetLength(); i++)
 	{
-		list.ShowRange(0, i+1);
+		list.ShowRange(0, i + 1);
 		int j = i - 1;
 		ElemType temp = list[i].GetValue();
 		list.HighLight(i, 150);
@@ -176,5 +178,40 @@ void Sort<ElemType>::StraightInsertSort(ElemList<ElemType>& list)
 		list[j + 1] = temp;
 		SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), COORD{ 0,0 });
 		cout << list;
+		list.HideRange(0, i + 1);
+	}
+}
+template <class ElemType>
+void Sort<ElemType>::BinaryInsertSort(ElemList<ElemType>& list)
+{
+	for (int i = 1; i < list.GetLength(); i++)
+	{
+		list.ShowRange(0, i + 1);
+		int low = 0;
+		int high = i - 1;
+		int middle = 0;
+		ElemType key = list[i].GetValue();
+		list.HighLight(i, 150);
+		while (low <= high)
+		{
+			middle = (low + high) / 2;
+			list.HighLight(middle, 150);
+			if (list[middle] > key)
+			{
+				high = middle - 1;
+			}
+			else if (list[middle] < key)
+			{
+				low = middle + 1;
+			}
+		}
+		for (int j = i - 1; j >= low; j--)
+		{
+			list[j + 1] = list[j];
+		}
+		list[low] = key;
+		SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), COORD{ 0,0 });
+		cout << list;
+		list.HideRange(0, i + 1);
 	}
 }
