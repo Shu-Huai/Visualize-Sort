@@ -11,7 +11,7 @@ int main()
 		Sleep(500);
 		list.RandomOrder();
 		list.HighLightAll(10);
-		cout << endl << "1. 冒泡排序。" << endl << "2. 优化的冒泡排序。" << endl << "3. 鸡尾酒排序。" << endl << "4. 快速排序。" << endl
+		cout << endl << "1. 冒泡排序。" << endl << "2. 优化的冒泡排序。" << endl << "3. 鸡尾酒排序。" << endl << "4. 快速排序。" << endl << "5. 直接插入排序。" << endl
 			<< "0. 退出。" << endl << "选择功能（0~7）：  \b\b";
 		cin >> functionSelect;
 		switch (functionSelect)
@@ -27,6 +27,9 @@ int main()
 			break;
 		case '4':
 			Sort<int>::QuickSort(list);
+			break;
+		case '5':
+			Sort<int>::StraightInsertSort(list);
 			break;
 		}
 		list.HighLightAll(10);

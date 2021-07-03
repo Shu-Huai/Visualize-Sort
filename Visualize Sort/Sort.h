@@ -12,6 +12,7 @@ public:
 	static void OptimizedBubbleSort(ElemList<ElemType>& list);
 	static void CockTailSort(ElemList<ElemType>& list);
 	static void QuickSort(ElemList<ElemType>& list);
+	static void StraightInsertSort(ElemList<ElemType>& list);
 };
 template <class ElemType>
 void Sort<ElemType>::QuickSort(ElemList<ElemType>& list, int low, int high)
@@ -26,8 +27,8 @@ void Sort<ElemType>::QuickSort(ElemList<ElemType>& list, int low, int high)
 		{
 			while (i < j && list[j] >= referenceValue)
 			{
-				list.HighLight(low, 100);
-				list.HighLight(j, 100);
+				list.HighLight(low, 150);
+				list.HighLight(j, 150);
 				j--;
 			}
 			if (i < j)
@@ -39,8 +40,8 @@ void Sort<ElemType>::QuickSort(ElemList<ElemType>& list, int low, int high)
 			}
 			while (i < j && list[i] <= referenceValue)
 			{
-				list.HighLight(low, 100);
-				list.HighLight(i, 100);
+				list.HighLight(low, 150);
+				list.HighLight(i, 150);
 				i++;
 			}
 			if (i < j)
@@ -65,8 +66,8 @@ void Sort<ElemType>::BubbleSort(ElemList<ElemType>& list)
 		list.ShowRange(0, list.GetLength() - i);
 		for (int j = 0; j < list.GetLength() - i - 1; j++)
 		{
-			list.HighLight(j, 100);
-			list.HighLight(j + 1, 100);
+			list.HighLight(j, 150);
+			list.HighLight(j + 1, 150);
 			if (list[j] > list[j + 1])
 			{
 				list.Swap(j, j + 1);
@@ -86,8 +87,8 @@ void Sort<ElemType>::OptimizedBubbleSort(ElemList<ElemType>& list)
 		bool isSwaped = false;
 		for (int j = 0; j < list.GetLength() - i - 1; j++)
 		{
-			list.HighLight(j, 100);
-			list.HighLight(j + 1, 100);
+			list.HighLight(j, 150);
+			list.HighLight(j + 1, 150);
 			if (list[j] > list[j + 1])
 			{
 				list.Swap(j, j + 1);
@@ -114,8 +115,8 @@ void Sort<ElemType>::CockTailSort(ElemList<ElemType>& list)
 		bool isSwaped = false;
 		for (int j = i; j < list.GetLength() - i - 1; j++)
 		{
-			list.HighLight(j, 100);
-			list.HighLight(j + 1, 100);
+			list.HighLight(j, 150);
+			list.HighLight(j + 1, 150);
 			if (list[j] > list[j + 1])
 			{
 				list.Swap(j, j + 1);
@@ -132,8 +133,8 @@ void Sort<ElemType>::CockTailSort(ElemList<ElemType>& list)
 		isSwaped = false;
 		for (int j = list.GetLength() - i - 1; j > i; j--)
 		{
-			list.HighLight(j, 100);
-			list.HighLight(j - 1, 100);
+			list.HighLight(j, 150);
+			list.HighLight(j - 1, 150);
 			if (list[j] < list[j - 1])
 			{
 				list.Swap(j, j - 1);
@@ -153,4 +154,27 @@ template <class ElemType>
 void Sort<ElemType>::QuickSort(ElemList<ElemType>& list)
 {
 	QuickSort(list, 0, list.GetLength() - 1);
+}
+template <class ElemType>
+void Sort<ElemType>::StraightInsertSort(ElemList<ElemType>& list)
+{
+	for (int i = 1; i < list.GetLength(); i++)
+	{
+		list.ShowRange(0, i+1);
+		int j = i - 1;
+		ElemType temp = list[i].GetValue();
+		list.HighLight(i, 150);
+		for (j = i - 1; j >= 0; j--)
+		{
+			list.HighLight(j, 150);
+			if (list[j] <= temp)
+			{
+				break;
+			}
+			list[j + 1] = list[j];
+		}
+		list[j + 1] = temp;
+		SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), COORD{ 0,0 });
+		cout << list;
+	}
 }
