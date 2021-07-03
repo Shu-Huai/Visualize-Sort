@@ -12,7 +12,11 @@ protected:
 public:
 	Elem(ElemType value = 0);
 	void HighLight(short yCoordinate,int time);
+	ElemType GetValue()const;
 	bool operator>(const Elem<ElemType>& elem);
+	bool operator>=(const Elem<ElemType>& elem);
+	bool operator<(const Elem<ElemType>& elem);
+	bool operator<=(const Elem<ElemType>& elem);
 	template <class SubElemType>
 	friend ostream& operator<<(ostream& out, const Elem<SubElemType>& elem);
 	template <class SubElemType>
@@ -40,12 +44,31 @@ void Elem<ElemType>::HighLight(short yCoordinate,int time)
 	Sleep(time);
 	cout << *this;
 	Sleep(time);
-
+}
+template<class ElemType>
+ElemType Elem<ElemType>::GetValue()const
+{
+	return value_;
 }
 template<class ElemType>
 bool Elem<ElemType>::operator>(const Elem<ElemType>& elem)
 {
 	return value_ > elem.value_;
+}
+template<class ElemType>
+bool Elem<ElemType>::operator>=(const Elem<ElemType>& elem)
+{
+	return value_ >= elem.value_;
+}
+template<class ElemType>
+bool Elem<ElemType>::operator<(const Elem<ElemType>& elem)
+{
+	return value_ < elem.value_;
+}
+template<class ElemType>
+bool Elem<ElemType>::operator<=(const Elem<ElemType>& elem)
+{
+	return value_ <= elem.value_;
 }
 template <class ElemType>
 ostream& operator<<(ostream& out, const Elem<ElemType>& elem)

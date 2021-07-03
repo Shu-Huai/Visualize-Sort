@@ -16,10 +16,16 @@ public:
 	~ElemList();
 	void HighLightAll(int time)const;
 	void HighLight(int yCoordinate, int time)const;
+	void ShowRange(int firstIndex, int secondIndex)const;
+	void HideRange(int firstIndex, int secondIndex)const;
 	int GetLength()const;
 	void Swap(int firstIndex, int secondIndex);
 	void RandomOrder();
 	Elem<ElemType>& operator[](int index);
+	void operator()()
+	{
+
+	}
 	template <class SubElemType>
 	friend ostream& operator<<(ostream& out, const ElemList<SubElemType>& list);
 };
@@ -63,6 +69,24 @@ template<class ElemType>
 void ElemList<ElemType>::HighLight(int yCoordinate, int time)const
 {
 	elems_[yCoordinate].HighLight(yCoordinate, time);
+}
+template<class ElemType>
+void ElemList<ElemType>::ShowRange(int firstIndex,int secondIndex) const
+{
+	for (short j = firstIndex; j < secondIndex; j++)
+	{
+		SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), COORD{ short(length_ * 2 + 2),j });
+		cout << "█";
+	}
+}
+template<class ElemType>
+void ElemList<ElemType>::HideRange(int firstIndex, int secondIndex) const
+{
+	for (short j = firstIndex; j < secondIndex; j++)
+	{
+		SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), COORD{ short(length_ * 2 + 2),j });
+		cout << "  ";
+	}
 }
 template<class ElemType>
 int ElemList<ElemType>::GetLength()const
