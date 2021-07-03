@@ -2,8 +2,8 @@
 #include "Sort.h"
 int main()
 {
-	int elems[20] = { 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20 };
-	ElemList<int> list(elems, 20, 20);
+	int elems[16] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 };
+	ElemList<int> list(elems, 16, 16);
 	list.HighLightAll(10);
 	char functionSelect = 0;
 	while (functionSelect != '0')
