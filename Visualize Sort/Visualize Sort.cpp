@@ -12,7 +12,7 @@ int main()
 		list.RandomOrder();
 		list.HighLightAll(10);
 		cout << endl << "1. 冒泡排序。" << endl << "2. 优化的冒泡排序。" << endl << "3. 鸡尾酒排序。" << endl << "4. 快速排序。" << endl << "5. 直接插入排序。" << endl
-			<< "6. 二分插入排序。" << endl << "0. 退出。" << endl << "选择功能（0~7）：  \b\b";
+			<< "6. 二分插入排序。" << endl << "7. 希尔排序。" << endl << "0. 退出。" << endl << "选择功能（0~7）：  \b\b";
 		cin >> functionSelect;
 		switch (functionSelect)
 		{
@@ -38,6 +38,10 @@ int main()
 			break;
 		case '6':
 			Sort<int>::BinaryInsertSort(list);
+			list.HighLightAll(10);
+			break;
+		case '7':
+			Sort<int>::ShellSort(list);
 			list.HighLightAll(10);
 			break;
 		}
