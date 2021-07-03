@@ -50,6 +50,7 @@ ElemList<ElemType>::ElemList(ElemType* elems, int length, int maxLength) : lengt
 	{
 		elems_[i].value_ = elems[i];
 	}
+	Elem<ElemType>::maxValue_ = length_;
 }
 template <class ElemType>
 ElemList<ElemType>::~ElemList()
@@ -71,11 +72,11 @@ void ElemList<ElemType>::HighLight(int yCoordinate, int time)const
 	elems_[yCoordinate].HighLight(yCoordinate, time);
 }
 template<class ElemType>
-void ElemList<ElemType>::ShowRange(int firstIndex,int secondIndex) const
+void ElemList<ElemType>::ShowRange(int firstIndex, int secondIndex) const
 {
 	for (short j = firstIndex; j < secondIndex; j++)
 	{
-		SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), COORD{ short(length_ * 2 + 2),j });
+		SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), COORD{ short(length_ * 2 + 3),j });
 		cout << "█";
 	}
 }
@@ -84,7 +85,7 @@ void ElemList<ElemType>::HideRange(int firstIndex, int secondIndex) const
 {
 	for (short j = firstIndex; j < secondIndex; j++)
 	{
-		SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), COORD{ short(length_ * 2 + 2),j });
+		SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), COORD{ short(length_ * 2 + 3),j });
 		cout << "  ";
 	}
 }
