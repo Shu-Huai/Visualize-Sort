@@ -1,5 +1,5 @@
 #pragma once
-#pragma warning(disable:63000/list.GetLength()5)
+#pragma warning(disable:6385)
 #include "Elem List.h"
 #include <iostream>
 using namespace std;
@@ -28,12 +28,12 @@ void Sort<ElemType>::QuickSort(ElemList<ElemType>& list, int low, int high)
 		ElemType referenceValue = list[low].GetValue();
 		int i = low;
 		int j = high;
+		list.HighLight(low, 2000 / list.GetLength());
 		while (i < j)
 		{
 			while (i < j && list[j] >= referenceValue)
 			{
-				list.HighLight(low, 2000 / list.GetLength() );
-				list.HighLight(j, 2000 / list.GetLength() );
+				list.HighLight(j, 2000 / list.GetLength());
 				j--;
 			}
 			if (i < j)
@@ -45,8 +45,7 @@ void Sort<ElemType>::QuickSort(ElemList<ElemType>& list, int low, int high)
 			}
 			while (i < j && list[i] <= referenceValue)
 			{
-				list.HighLight(low, 2000 / list.GetLength() );
-				list.HighLight(i, 2000 / list.GetLength() );
+				list.HighLight(i, 2000 / list.GetLength());
 				i++;
 			}
 			if (i < j)
@@ -73,8 +72,8 @@ void Sort<ElemType>::BubbleSort(ElemList<ElemType>& list)
 		list.ShowRange(0, list.GetLength() - i);
 		for (int j = 0; j < list.GetLength() - i - 1; j++)
 		{
-			list.HighLight(j, 2000 / list.GetLength() );
-			list.HighLight(j + 1, 2000 / list.GetLength() );
+			list.HighLight(j, 2000 / list.GetLength());
+			list.HighLight(j + 1, 2000 / list.GetLength());
 			if (list[j] > list[j + 1])
 			{
 				list.Swap(j, j + 1);
@@ -94,8 +93,8 @@ void Sort<ElemType>::OptimizedBubbleSort(ElemList<ElemType>& list)
 		bool isSwaped = false;
 		for (int j = 0; j < list.GetLength() - i - 1; j++)
 		{
-			list.HighLight(j, 2000 / list.GetLength() );
-			list.HighLight(j + 1, 2000 / list.GetLength() );
+			list.HighLight(j, 2000 / list.GetLength());
+			list.HighLight(j + 1, 2000 / list.GetLength());
 			if (list[j] > list[j + 1])
 			{
 				list.Swap(j, j + 1);
@@ -122,8 +121,8 @@ void Sort<ElemType>::CockTailSort(ElemList<ElemType>& list)
 		bool isSwaped = false;
 		for (int j = i; j < list.GetLength() - i - 1; j++)
 		{
-			list.HighLight(j, 2000 / list.GetLength() );
-			list.HighLight(j + 1, 2000 / list.GetLength() );
+			list.HighLight(j, 2000 / list.GetLength());
+			list.HighLight(j + 1, 2000 / list.GetLength());
 			if (list[j] > list[j + 1])
 			{
 				list.Swap(j, j + 1);
@@ -141,8 +140,8 @@ void Sort<ElemType>::CockTailSort(ElemList<ElemType>& list)
 		isSwaped = false;
 		for (int j = list.GetLength() - i - 1; j > i; j--)
 		{
-			list.HighLight(j, 2000 / list.GetLength() );
-			list.HighLight(j - 1, 2000 / list.GetLength() );
+			list.HighLight(j, 2000 / list.GetLength());
+			list.HighLight(j - 1, 2000 / list.GetLength());
 			if (list[j] < list[j - 1])
 			{
 				list.Swap(j, j - 1);
@@ -171,10 +170,10 @@ void Sort<ElemType>::StraightInsertSort(ElemList<ElemType>& list)
 		list.ShowRange(0, i + 1);
 		int j = i - 1;
 		ElemType temp = list[i].GetValue();
-		list.HighLight(i, 2000 / list.GetLength() );
+		list.HighLight(i, 2000 / list.GetLength());
 		for (j = i - 1; j >= 0; j--)
 		{
-			list.HighLight(j, 2000 / list.GetLength() );
+			list.HighLight(j, 2000 / list.GetLength());
 			if (list[j] <= temp)
 			{
 				break;
@@ -197,11 +196,11 @@ void Sort<ElemType>::BinaryInsertSort(ElemList<ElemType>& list)
 		int high = i - 1;
 		int middle = 0;
 		ElemType key = list[i].GetValue();
-		list.HighLight(i, 2000 / list.GetLength() );
+		list.HighLight(i, 2000 / list.GetLength());
 		while (low <= high)
 		{
 			middle = (low + high) / 2;
-			list.HighLight(middle, 2000 / list.GetLength() );
+			list.HighLight(middle, 2000 / list.GetLength());
 			if (list[middle] > key)
 			{
 				high = middle - 1;
@@ -235,10 +234,10 @@ void Sort<ElemType>::ShellSort(ElemList<ElemType>& list)
 			{
 				list.ShowRange(j, j + 1);
 			}
-			list.HighLight(i, 2000 / list.GetLength() );
+			list.HighLight(i, 2000 / list.GetLength());
 			for (j = i - distance; j >= 0; j -= distance)
 			{
-				list.HighLight(j, 2000 / list.GetLength() );
+				list.HighLight(j, 2000 / list.GetLength());
 				if (list[j] <= temp)
 				{
 					break;
@@ -268,8 +267,8 @@ void Sort<ElemType>::CountSort(ElemList<ElemType>& list)
 			{
 				continue;
 			}
-			list.HighLight(i, 2000 / list.GetLength() );
-			list.HighLight(j, 2000 / list.GetLength() );
+			list.HighLight(i, 2000 / list.GetLength());
+			list.HighLight(j, 2000 / list.GetLength());
 			if (list[j] < list[i])
 			{
 				indexes[i]++;
