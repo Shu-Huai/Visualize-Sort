@@ -15,6 +15,7 @@ public:
 	static void StraightInsertSort(ElemList<ElemType>& list);
 	static void BinaryInsertSort(ElemList<ElemType>& list);
 	static void ShellSort(ElemList<ElemType>& list);
+	static void CountSort(ElemList<ElemType>& list);
 };
 template <class ElemType>
 void Sort<ElemType>::QuickSort(ElemList<ElemType>& list, int low, int high)
@@ -250,4 +251,43 @@ void Sort<ElemType>::ShellSort(ElemList<ElemType>& list)
 		}
 		distance /= 2;
 	}
+}
+template <class ElemType>
+void Sort<ElemType>::CountSort(ElemList<ElemType>& list)
+{
+	if (list.GetLength() <= 0)
+	{
+		return;
+	}
+	int* indexes = new int[list.GetLength()] { 0 };
+	for (int i = 0; i < list.GetLength(); i++)
+	{
+		for (int j = 0; j < list.GetLength(); j++)
+		{
+			if (i == j)
+			{
+				continue;
+			}
+			list.HighLight(i, 150);
+			list.HighLight(j, 150);
+			if (list[j] < list[i])
+			{
+				indexes[i]++;
+			}
+			SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), COORD{ short(list.GetLength() * 2 + 3),short(i) });
+			cout << setw(2) << indexes[i];
+		}
+	}
+	ElemList<ElemType> result;
+	for (int i = 0; i < list.GetLength(); i++)
+	{
+		result.AppendElem(i);
+	}
+	for (int i = 0; i < list.GetLength(); i++)
+	{
+		result[indexes[i]] = list[i];
+	}
+	list = result;
+	delete[] indexes;
+	list.HideRange(0, list.GetLength());
 }

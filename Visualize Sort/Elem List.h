@@ -1,5 +1,4 @@
 ﻿#pragma once
-#pragma warning(disable:6386)
 #include "Elem.h"
 #include <ctime>
 template <class ElemType>
@@ -18,19 +17,17 @@ public:
 	void HighLight(int yCoordinate, int time)const;
 	void ShowRange(int firstIndex, int secondIndex)const;
 	void HideRange(int firstIndex, int secondIndex)const;
+	void AppendElem(const ElemType& elem);
 	int GetLength()const;
 	void Swap(int firstIndex, int secondIndex);
 	void RandomOrder();
 	Elem<ElemType>& operator[](int index);
-	void operator()()
-	{
-
-	}
+	ElemList<ElemType>& operator=(const ElemList<ElemType>& list);
 	template <class SubElemType>
 	friend ostream& operator<<(ostream& out, const ElemList<SubElemType>& list);
 };
 template <class ElemType>
-ElemList<ElemType>::ElemList(int maxLength) : maxLength_(maxLength)
+ElemList<ElemType>::ElemList(int maxLength) : length_(0), maxLength_(maxLength)
 {
 	elems_ = new Elem<ElemType>[maxLength_];
 }
@@ -89,6 +86,15 @@ void ElemList<ElemType>::HideRange(int firstIndex, int secondIndex) const
 		cout << "  ";
 	}
 }
+template <class ElemType>
+void ElemList<ElemType>::AppendElem(const ElemType& elem)
+{
+	if (length_ == maxLength_)
+	{
+		throw string("范围错误。");
+	}
+	elems_[length_++] = elem;
+}
 template<class ElemType>
 int ElemList<ElemType>::GetLength()const
 {
@@ -145,6 +151,25 @@ Elem<ElemType>& ElemList<ElemType>::operator[](int index)
 		throw string("范围错误。");
 	}
 	return elems_[index];
+}
+template <class ElemType>
+ElemList<ElemType>& ElemList<ElemType>::operator=(const ElemList<ElemType>& list)
+{
+	if (&list != this)
+	{
+		delete[] elems_;
+		maxLength_ = list.maxLength_;
+		length_ = list.length_;
+		elems_ = new Elem<ElemType>[maxLength_];
+		for (int i = 0; i < length_; i++)
+		{
+			for (int i = 0; i < length_; i++)
+			{
+				elems_[i] = list.elems_[i];
+			}
+		}
+	}
+	return *this;
 }
 template <class ElemType>
 ostream& operator<<(ostream& out, const ElemList<ElemType>& list)
