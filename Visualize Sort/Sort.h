@@ -1,4 +1,5 @@
 #pragma once
+#pragma warning(disable:6385)
 #include "Elem List.h"
 #include <iostream>
 using namespace std;
@@ -16,6 +17,7 @@ public:
 	static void BinaryInsertSort(ElemList<ElemType>& list);
 	static void ShellSort(ElemList<ElemType>& list);
 	static void CountSort(ElemList<ElemType>& list);
+	static void MonkeySort(ElemList<ElemType>& list);
 };
 template <class ElemType>
 void Sort<ElemType>::QuickSort(ElemList<ElemType>& list, int low, int high)
@@ -255,11 +257,7 @@ void Sort<ElemType>::ShellSort(ElemList<ElemType>& list)
 template <class ElemType>
 void Sort<ElemType>::CountSort(ElemList<ElemType>& list)
 {
-	if (list.GetLength() <= 0)
-	{
-		return;
-	}
-	int* indexes = new int[list.GetLength()] { 0 };
+	int* indexes = new int[list.GetLength()]{ 0 };
 	for (int i = 0; i < list.GetLength(); i++)
 	{
 		for (int j = 0; j < list.GetLength(); j++)
@@ -278,7 +276,7 @@ void Sort<ElemType>::CountSort(ElemList<ElemType>& list)
 			cout << setw(2) << indexes[i];
 		}
 	}
-	ElemList<ElemType> result;
+	ElemList<ElemType> result(list.GetLength());
 	for (int i = 0; i < list.GetLength(); i++)
 	{
 		result.AppendElem(i);
@@ -290,4 +288,15 @@ void Sort<ElemType>::CountSort(ElemList<ElemType>& list)
 	list = result;
 	delete[] indexes;
 	list.HideRange(0, list.GetLength());
+}
+template <class ElemType>
+void Sort<ElemType>::MonkeySort(ElemList<ElemType>& list)
+{
+	bool isSorted = list.IsSorted();
+	while (!isSorted)
+	{
+		list.HighLightAll(10);
+		list.RandomOrder();
+		isSorted = list.IsSorted();
+	}
 }

@@ -1,4 +1,5 @@
 ﻿#pragma once
+#pragma warning(disable:6386)
 #include "Elem.h"
 #include <ctime>
 template <class ElemType>
@@ -13,6 +14,7 @@ public:
 	ElemList(int maxLength = 1000);
 	ElemList(ElemType* elems, int length, int maxLength = 1000);
 	~ElemList();
+	bool IsSorted()const;
 	void HighLightAll(int time)const;
 	void HighLight(int yCoordinate, int time)const;
 	void ShowRange(int firstIndex, int secondIndex)const;
@@ -53,6 +55,18 @@ template <class ElemType>
 ElemList<ElemType>::~ElemList()
 {
 	delete[] elems_;
+}
+template<class ElemType>
+bool ElemList<ElemType>::IsSorted()const
+{
+	for (int i = 0; i < length_ - 1; i++)
+	{
+		if (elems_[i] > elems_[i + 1])
+		{
+			return false;
+		}
+	}
+	return true;
 }
 template<class ElemType>
 void ElemList<ElemType>::HighLightAll(int time)const
