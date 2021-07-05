@@ -8,6 +8,7 @@ class Sort
 {
 protected:
 	static void QuickSort(ElemList<ElemType>& list, int low, int high);
+	static void Merge(ElemList<ElemType>& list, int low, int middle, int high);
 public:
 	static void BubbleSort(ElemList<ElemType>& list);
 	static void OptimizedBubbleSort(ElemList<ElemType>& list);
@@ -18,6 +19,8 @@ public:
 	static void ShellSort(ElemList<ElemType>& list);
 	static void CountSort(ElemList<ElemType>& list);
 	static void MonkeySort(ElemList<ElemType>& list);
+	static void RadixSort(ElemList<ElemType>& list);
+	static void MergeSort(ElemList<ElemType>& list);
 };
 template <class ElemType>
 void Sort<ElemType>::QuickSort(ElemList<ElemType>& list, int low, int high)
@@ -63,6 +66,56 @@ void Sort<ElemType>::QuickSort(ElemList<ElemType>& list, int low, int high)
 		QuickSort(list, low, i - 1);
 		QuickSort(list, i + 1, high);
 	}
+}
+template <class ElemType>
+void Sort<ElemType>::Merge(ElemList<ElemType>& list, int low, int middle, int high)
+{
+	list.ShowRange(low, high + 1);
+	ElemList<ElemType> result(high + 1);
+	for (int i = 0; i < high + 1; i++)
+	{
+		result.AppendElem(0);
+	}
+	int i = low;
+	int j = middle + 1;
+	int k = low;
+	while (i <= middle && j <= high)
+	{
+		list.HighLight(i, 2000 / list.GetLength());
+		list.HighLight(j, 2000 / list.GetLength());
+		if (list[i] <= list[j])
+		{
+			result[k] = list[i];
+			i++;
+		}
+		else
+		{
+			result[k] = list[j];
+			j++;
+		}
+		k++;
+	}
+	while (i <= middle)
+	{
+		list.HighLight(i, 2000 / list.GetLength());
+		result[k] = list[i];
+		k++;
+		i++;
+	}
+	while (j <= high)
+	{
+		list.HighLight(j, 2000 / list.GetLength());
+		result[k] = list[j];
+		k++;
+		j++;
+	}
+	for (k = low; k <= high; k++)
+	{
+		list[k] = result[k];
+	}
+	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), COORD{ 0,0 });
+	cout << list;
+	list.HideRange(low, high + 1);
 }
 template<class ElemType>
 void Sort<ElemType>::BubbleSort(ElemList<ElemType>& list)
@@ -301,5 +354,71 @@ void Sort<ElemType>::MonkeySort(ElemList<ElemType>& list)
 		list.RandomOrder();
 		isSorted = list.IsSorted();
 		list.HideRange(0, list.GetLength());
+	}
+}
+template<class ElemType>
+void Sort<ElemType>::RadixSort(ElemList<ElemType>& list)
+{
+	for (int i = 1; list[0].GetMaxValue() / i > 0; i *= 10)
+	{
+		int* counts = new int[10]{ 0 };
+		for (int j = 0; j < list.GetLength(); j++)
+		{
+			counts[(list[j].GetValue() / i) % 10]++;
+		}
+		list.HighLightAll(2000 / list.GetLength());
+		for (int j = 0; j < list.GetLength(); j++)
+		{
+			SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), COORD{ short(list.GetLength() * 2 + 3),short(j) });
+			cout << setw(2) << counts[(list[j].GetValue() / i) % 10];
+		}
+		int* indexes = new int[10]{ 0 };
+		for (int j = 1; j < 10; j++)
+		{
+			indexes[j] = indexes[j - 1] + counts[j - 1];
+		}
+		list.HighLightAll(2000 / list.GetLength());
+		for (int j = 0; j < list.GetLength(); j++)
+		{
+			SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), COORD{ short(list.GetLength() * 2 + 3),short(j) });
+			cout << setw(2) << indexes[(list[j].GetValue() / i) % 10];
+		}
+		delete[]counts;
+		ElemType* result = new ElemType[list.GetLength()]{ 0 };
+		for (int j = 0; j < list.GetLength(); j++)
+		{
+			SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), COORD{ short(list.GetLength() * 2 + 3),short(j) });
+			cout << setw(2) << indexes[(list[j].GetValue() / i) % 10];
+			result[indexes[(list[j].GetValue() / i) % 10]] = list[j].GetValue();
+			indexes[(list[j].GetValue() / i) % 10]++;
+			list.HighLight(j, 2000 / list.GetLength());
+		}
+		delete[]indexes;
+		for (int j = 0; j < list.GetLength(); j++)
+		{
+			list[j] = result[j];
+		}
+		list.HighLightAll(10);
+		list.HideRange(0, list.GetLength());
+		delete[]result;
+	}
+}
+template <class ElemType>
+void Sort<ElemType>::MergeSort(ElemList<ElemType>& list)
+{
+	int intervalLength = 1;
+	while (intervalLength < list.GetLength())
+	{
+		int index = 0;
+		while (index + 2 * intervalLength <= list.GetLength())
+		{
+			Merge(list, index, index + intervalLength - 1, index + 2 * intervalLength - 1);
+			index += 2 * intervalLength;
+		}
+		if (index + intervalLength < list.GetLength())
+		{
+			Merge(list, index, index + intervalLength - 1, list.GetLength() - 1);
+		}
+		intervalLength *= 2;
 	}
 }

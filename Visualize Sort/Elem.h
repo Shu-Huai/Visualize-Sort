@@ -14,6 +14,7 @@ public:
 	Elem(ElemType value = 0);
 	void HighLight(short yCoordinate, int time);
 	ElemType GetValue()const;
+	ElemType GetMaxValue() const;
 	bool operator>(const Elem<ElemType>& elem);
 	bool operator>=(const Elem<ElemType>& elem);
 	bool operator<(const Elem<ElemType>& elem);
@@ -33,12 +34,7 @@ template<class ElemType>
 void Elem<ElemType>::HighLight(short yCoordinate, int time)
 {
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), COORD{ 0,yCoordinate });
-	for (int j = 0; j < value_; j++)
-	{
-		cout << "  ";
-	}
-	cout << "  ";
-	for (int j = 0; j < maxValue_ - value_; j++)
+	for (int i = 0; i < maxValue_ + 1; i++)
 	{
 		cout << "  ";
 	}
@@ -51,6 +47,11 @@ template<class ElemType>
 ElemType Elem<ElemType>::GetValue()const
 {
 	return value_;
+}
+template<class ElemType>
+ElemType Elem<ElemType>::GetMaxValue()const
+{
+	return maxValue_;
 }
 template<class ElemType>
 bool Elem<ElemType>::operator>(const Elem<ElemType>& elem)
