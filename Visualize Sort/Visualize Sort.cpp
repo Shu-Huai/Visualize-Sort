@@ -1,12 +1,26 @@
 ﻿#include "Elem List.h"
 #include "Sort.h"
+void FullScreen()
+{
+	HWND handle = GetForegroundWindow();
+	int xCoordinate = GetSystemMetrics(SM_CXSCREEN);
+	int yCoordinate = GetSystemMetrics(SM_CYSCREEN);
+	LONG l_WinStyle = GetWindowLong(handle, GWL_STYLE);
+	SetWindowLong(handle, GWL_STYLE, (l_WinStyle | WS_POPUP | WS_MAXIMIZE) & ~WS_CAPTION & ~WS_THICKFRAME & ~WS_BORDER);
+	SetWindowPos(handle, HWND_TOP, 0, 0, xCoordinate, yCoordinate, 0);
+}
 int main()
 {
+	FullScreen();
 	int length = 0;
 	while (length <= 0)
 	{
-		cout << "请输入元素个数：";
+		cout << "请输入元素个数（输入0时退出）：";
 		cin >> length;
+		if (!length)
+		{
+			return 0;
+		}
 		system("cls");
 	}
 	int* elems = new int[length];
