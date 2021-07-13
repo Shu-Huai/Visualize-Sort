@@ -1,5 +1,4 @@
-﻿#include "Elem List.h"
-#include "Sort.h"
+﻿#include "Sort.cpp"
 void FullScreen()
 {
 	HWND handle = GetForegroundWindow();

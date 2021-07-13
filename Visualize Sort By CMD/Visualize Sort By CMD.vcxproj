@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{2e58281a-b4a9-4ce6-964f-985b844012fc}</ProjectGuid>
-    <RootNamespace>VisualizeSort</RootNamespace>
+    <ProjectGuid>{1a4a85c7-babd-4d8b-aaea-57d00931688f}</ProjectGuid>
+    <RootNamespace>VisualizeSortByCMD</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -139,12 +139,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Elem List.cpp" />
+    <ClCompile Include="Elem.cpp" />
+    <ClCompile Include="Sort.cpp" />
+    <ClCompile Include="Visualize Sort By CMD.cpp" />
+  </ItemGroup>
+  <ItemGroup>
     <ClInclude Include="Elem List.h" />
     <ClInclude Include="Elem.h" />
     <ClInclude Include="Sort.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="Visualize Sort.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

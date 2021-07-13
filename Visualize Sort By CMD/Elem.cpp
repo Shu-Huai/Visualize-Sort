@@ -1,29 +1,6 @@
-﻿#pragma once
-#include <iostream>
+﻿#include "Elem.h"
 #include <windows.h>
 #include <iomanip>
-using namespace std;
-template <class ElemType>
-class Elem
-{
-protected:
-	ElemType value_;
-	static ElemType maxValue_;
-
-public:
-	Elem(ElemType value = 0);
-	void HighLight(short yCoordinate, int time);
-	ElemType GetValue()const;
-	ElemType GetMaxValue() const;
-	bool operator>(const Elem<ElemType>& elem);
-	bool operator>=(const Elem<ElemType>& elem);
-	bool operator<(const Elem<ElemType>& elem);
-	bool operator<=(const Elem<ElemType>& elem);
-	template <class SubElemType>
-	friend ostream& operator<<(ostream& out, const Elem<SubElemType>& elem);
-	template <class SubElemType>
-	friend class ElemList;
-};
 template<class ElemType>
 ElemType Elem<ElemType>::maxValue_ = 0;
 template <class ElemType>
