@@ -147,7 +147,14 @@
   <ItemGroup>
     <ClInclude Include="Elem List.h" />
     <ClInclude Include="Elem.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="Sort.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Visualize Sort By CMD.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Visualize Sort By CMD Icon.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
