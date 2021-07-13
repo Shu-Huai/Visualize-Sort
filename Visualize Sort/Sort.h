@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #pragma warning(disable:6385)
 #include "Elem List.cpp"
 template<class ElemType>

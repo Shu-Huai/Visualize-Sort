@@ -1,4 +1,4 @@
-#include "Sort.h"
+﻿#include "Sort.h"
 template <class ElemType>
 void Sort<ElemType>::QuickSort(ElemList<ElemType>& list, int low, int high)
 {

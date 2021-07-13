@@ -15,13 +15,13 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Visualize Sort By CMD.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="Elem.cpp">
+    <ClCompile Include="Visualize Sort.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="Elem List.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Elem.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="Sort.cpp">
@@ -29,10 +29,10 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Elem.h">
+    <ClInclude Include="Elem List.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="Elem List.h">
+    <ClInclude Include="Elem.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Sort.h">
@@ -43,12 +43,12 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="Visualize Sort By CMD.rc">
+    <ResourceCompile Include="Visualize Sort.rc">
       <Filter>资源文件</Filter>
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="Visualize Sort By CMD Icon.ico">
+    <Image Include="Visualize Sort Icon.ico">
       <Filter>资源文件</Filter>
     </Image>
   </ItemGroup>

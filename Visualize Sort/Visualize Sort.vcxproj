@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{1a4a85c7-babd-4d8b-aaea-57d00931688f}</ProjectGuid>
-    <RootNamespace>VisualizeSortByCMD</RootNamespace>
+    <ProjectGuid>{a79be92d-c586-4b10-943d-6796c714aaa2}</ProjectGuid>
+    <RootNamespace>VisualizeSort</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -116,6 +116,8 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>Default</LanguageStandard>
+      <LanguageStandard_C>Default</LanguageStandard_C>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -142,7 +144,7 @@
     <ClCompile Include="Elem List.cpp" />
     <ClCompile Include="Elem.cpp" />
     <ClCompile Include="Sort.cpp" />
-    <ClCompile Include="Visualize Sort By CMD.cpp" />
+    <ClCompile Include="Visualize Sort.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Elem List.h" />
@@ -151,10 +153,10 @@
     <ClInclude Include="Sort.h" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="Visualize Sort By CMD.rc" />
+    <ResourceCompile Include="Visualize Sort.rc" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="Visualize Sort By CMD Icon.ico" />
+    <Image Include="Visualize Sort Icon.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
