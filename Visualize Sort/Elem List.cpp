@@ -1,27 +1,18 @@
 ﻿#include "Elem List.h"
+#include <assert.h>
 #include <ctime>
+#include <cstdlib>
+#include <iostream>
 template <class ElemType>
-ElemList<ElemType>::ElemList(int maxLength) : length_(0), maxLength_(maxLength)
+ElemList<ElemType>::ElemList(int length, int maxLength) : length_(length), maxLength_(maxLength)
 {
-	elems_ = new Elem<ElemType>[maxLength_];
-}
-template <class ElemType>
-ElemList<ElemType>::ElemList(ElemType* elems, int length, int maxLength) : length_(length), maxLength_(maxLength)
-{
-	if (length_ < 0)
-	{
-		throw string("长度过小。");
-	}
-	if (length_ > maxLength_)
-	{
-		throw string("长度过大。");
-	}
-	elems_ = new Elem<ElemType>[maxLength_];
+	maxLength_ = maxLength;
+	elems_ = new ElemType[maxLength_];
+	assert(elems_);
 	for (int i = 0; i < length_; i++)
 	{
-		elems_[i].value_ = elems[i];
+		elems_[i] = i + 1;
 	}
-	Elem<ElemType>::maxValue_ = length_;
 }
 template <class ElemType>
 ElemList<ElemType>::~ElemList()
@@ -40,46 +31,52 @@ bool ElemList<ElemType>::IsSorted()const
 	}
 	return true;
 }
-template<class ElemType>
-void ElemList<ElemType>::HighLightAll(int time)const
-{
-	for (int i = 0; i < length_; i++)
-	{
-		SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), COORD{ 0,short(i) });
-		elems_[i].HighLight(i, time);
-	}
-}
-template<class ElemType>
-void ElemList<ElemType>::HighLight(int yCoordinate, int time)const
-{
-	elems_[yCoordinate].HighLight(yCoordinate, time);
-}
-template<class ElemType>
-void ElemList<ElemType>::ShowRange(int firstIndex, int secondIndex) const
-{
-	for (short j = firstIndex; j < secondIndex; j++)
-	{
-		SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), COORD{ short(length_ * 2 + 3),j });
-		cout << "█";
-	}
-}
-template<class ElemType>
-void ElemList<ElemType>::HideRange(int firstIndex, int secondIndex) const
-{
-	for (short j = firstIndex; j < secondIndex; j++)
-	{
-		SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), COORD{ short(length_ * 2 + 3),j });
-		cout << "  ";
-	}
-}
 template <class ElemType>
 void ElemList<ElemType>::AppendElem(const ElemType& elem)
 {
 	if (length_ == maxLength_)
 	{
-		throw string("范围错误。");
+		throw std::string("范围错误。");
 	}
 	elems_[length_++] = elem;
+}
+template <class ElemType>
+void ElemList<ElemType>::SetLength(int length)
+{
+	if (length < 0)
+	{
+		throw std::string("范围错误。");
+	}
+	else if (length <= length_)
+	{
+		for (int i = 0; i < length; i++)
+		{
+			if (elems_[i] > length)
+			{
+				for (int j = length; j < length_; j++)
+				{
+					if (elems_[j] <= length)
+					{
+						Swap(i, j);
+						break;
+					}
+				}
+			}
+		}
+		length_ = length;
+	}
+	else if (length <= maxLength_)
+	{
+		for (int i = length_; i < length; i++)
+		{
+			elems_[i] = i + 1;
+		}
+		length_ = length;
+	}
+	else
+	{
+		throw std::string("范围错误。");
+	}
 }
 template<class ElemType>
 int ElemList<ElemType>::GetLength()const
@@ -89,7 +86,7 @@ int ElemList<ElemType>::GetLength()const
 template<class ElemType>
 void ElemList<ElemType>::Swap(int firstIndex, int secondIndex)
 {
-	Elem<ElemType> temp = elems_[firstIndex];
+	ElemType temp = elems_[firstIndex];
 	elems_[firstIndex] = elems_[secondIndex];
 	elems_[secondIndex] = temp;
 }
@@ -120,21 +117,21 @@ void ElemList<ElemType>::RandomOrder()
 	ElemType* result = new ElemType[length_];
 	for (int i = 0; i < length_; i++)
 	{
-		result[i] = elems_[indexes[i]].value_;
+		result[i] = elems_[indexes[i]];
 	}
 	delete[] indexes;
 	for (int i = 0; i < length_; i++)
 	{
-		elems_[i].value_ = result[i];
+		elems_[i] = result[i];
 	}
 	delete[] result;
 }
 template <class ElemType>
-Elem<ElemType>& ElemList<ElemType>::operator[](int index)
+ElemType& ElemList<ElemType>::operator[](int index)
 {
 	if (index < 0 || index >= length_)
 	{
-		throw string("范围错误。");
+		throw std::string("范围错误。");
 	}
 	return elems_[index];
 }
@@ -144,9 +141,9 @@ ElemList<ElemType>& ElemList<ElemType>::operator=(const ElemList<ElemType>& list
 	if (&list != this)
 	{
 		delete[] elems_;
-		maxLength_ = list.maxLength_;
 		length_ = list.length_;
-		elems_ = new Elem<ElemType>[maxLength_];
+		maxLength_ = list.maxLength_;
+		elems_ = new ElemType[maxLength_];
 		for (int i = 0; i < length_; i++)
 		{
 			for (int i = 0; i < length_; i++)
@@ -156,13 +153,4 @@ ElemList<ElemType>& ElemList<ElemType>::operator=(const ElemList<ElemType>& list
 		}
 	}
 	return *this;
-}
-template <class ElemType>
-ostream& operator<<(ostream& out, const ElemList<ElemType>& list)
-{
-	for (int i = 0; i < list.length_; i++)
-	{
-		out << list.elems_[i] << endl;
-	}
-	return out;
 }

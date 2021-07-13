@@ -1,91 +1,74 @@
-﻿#include "Sort.cpp"
-void FullScreen()
+﻿#include "Visualize Sort.h"
+#include <Windows.h>
+#include <qpainter.h>
+VisualizeSort::VisualizeSort(int maxLength, QWidget* parent) : QMainWindow(parent), maxLength_(maxLength), isStarted_(false)
 {
-	HWND handle = GetForegroundWindow();
-	int xCoordinate = GetSystemMetrics(SM_CXSCREEN);
-	int yCoordinate = GetSystemMetrics(SM_CYSCREEN);
-	LONG l_WinStyle = GetWindowLong(handle, GWL_STYLE);
-	SetWindowLong(handle, GWL_STYLE, (l_WinStyle | WS_POPUP | WS_MAXIMIZE) & ~WS_CAPTION & ~WS_THICKFRAME & ~WS_BORDER);
-	SetWindowPos(handle, HWND_TOP, 0, 0, xCoordinate, yCoordinate, 0);
+	ui_.setupUi(this);
+	ui_.numberSpin->setMinimum(2);
+	ui_.numberSpin->setMaximum(maxLength_);
+	ui_.numberSpin->setKeyboardTracking(false);
+	connect(ui_.numberSpin, SIGNAL(valueChanged(int)), this, SLOT(repaint()));
+	connect(ui_.initializeButton, SIGNAL(clicked()), this, SLOT(RandomInitialize()));
+	connect(ui_.startButton, SIGNAL(clicked()), this, SLOT(StartSort()));
+	connect(&sort_, SIGNAL(BubbleSignal(int, int, bool)), this, SLOT(BubbleSlot(int, int, bool)));
+	list_ = ElemList<int>(ui_.numberSpin->value(), maxLength_);
 }
-int main()
+VisualizeSort::~VisualizeSort()
 {
-	FullScreen();
-	int length = 0;
-	while (length <= 0)
+}
+void VisualizeSort::paintEvent(QPaintEvent* event)
+{
+	list_.SetLength(ui_.numberSpin->value());
+	QPainter painter(this);
+	painter.begin(this);
+	double unitWidth = (ui_.canvasPanel->width() - 20) / ui_.numberSpin->value();
+	double unitHeight = (ui_.canvasPanel->height() - 20) / ui_.numberSpin->value();
+	for (int i = 0; i < ui_.numberSpin->value(); i++)
 	{
-		cout << "请输入元素个数（输入0时退出）：";
-		cin >> length;
-		if (!length)
+		int value = list_[i];
+		QColor color(0, 0, 0);
+		if (isStarted_ && (i == firstIndex_ || i == secondIndex_))
 		{
-			return 0;
+			if (neededSwap_)
+			{
+				color.setRgb(250, 170, 0);
+			}
+			else
+			{
+				color.setRgb(0, 200, 0);
+			}
 		}
-		system("cls");
-	}
-	int* elems = new int[length];
-	for (int i = 0; i < length; i++)
-	{
-		elems[i] = i + 1;
-	}
-	ElemList<int> list(elems, length, length);
-	delete[]elems;
-	list.HighLightAll(10);
-	char functionSelect = 0;
-	while (functionSelect != '0')
-	{
-		Sleep(1000);
-		list.RandomOrder();
-		list.HighLightAll(10);
-		cout << endl << "1. 冒泡排序。" << endl << "2. 优化的冒泡排序。" << endl << "3. 鸡尾酒排序。" << endl << "4. 快速排序。" << endl << "5. 直接插入排序。" << endl
-			<< "6. 二分插入排序。" << endl << "7. 希尔排序。" << endl << "8. 计数排序。" << endl << "9. 猴子排序。" << endl << "a. 基数排序。" << endl
-			<< "b. 归并排序。" << endl << "0. 退出。" << endl << "选择功能（0~8）：  \b\b";
-		cin >> functionSelect;
-		switch (functionSelect)
+		else
 		{
-		case '1':
-			Sort<int>::BubbleSort(list);
-			list.HighLightAll(10);
-			break;
-		case '2':
-			Sort<int>::OptimizedBubbleSort(list);
-			list.HighLightAll(10);
-			break;
-		case '3':
-			Sort<int>::CockTailSort(list);
-			list.HighLightAll(10);
-			break;
-		case '4':
-			Sort<int>::QuickSort(list);
-			list.HighLightAll(10);
-			break;
-		case '5':
-			Sort<int>::StraightInsertSort(list);
-			list.HighLightAll(10);
-			break;
-		case '6':
-			Sort<int>::BinaryInsertSort(list);
-			list.HighLightAll(10);
-			break;
-		case '7':
-			Sort<int>::ShellSort(list);
-			list.HighLightAll(10);
-			break;
-		case '8':
-			Sort<int>::CountSort(list);
-			list.HighLightAll(10);
-			break;
-		case '9':
-			Sort<int>::MonkeySort(list);
-			list.HighLightAll(10);
-			break;
-		case 'a':
-			Sort<int>::RadixSort(list);
-			list.HighLightAll(10);
-			break;
-		case 'b':
-			Sort<int>::MergeSort(list);
-			list.HighLightAll(10);
+			color.setRgb(0, 160, 230);
 		}
+		painter.fillRect(20 + unitWidth * i, ui_.canvasPanel->height() - unitHeight * value, unitWidth - 1, unitHeight * value, color);
 	}
-	return 0;
+	if (isStarted_)
+	{
+		Sleep(ui_.timeSpin->value());
+	}
+	painter.end();
+}
+void VisualizeSort::RandomInitialize()
+{
+	list_.RandomOrder();
+	repaint();
+}
+void VisualizeSort::StartSort()
+{
+	isStarted_ = true;
+	if (ui_.meansCombo->currentText() == QString("冒泡排序"))
+	{
+		sort_.BubbleSort(list_);
+	}
+	isStarted_ = false;
+	repaint();
+}
+void VisualizeSort::BubbleSlot(int firstIndex, int secondIndex, bool neededSwap)
+{
+	firstIndex_ = firstIndex;
+	secondIndex_ = secondIndex;
+	neededSwap_ = neededSwap;
+	repaint();
 }

@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/VisualizeSort">
+        <file>Visualize Sort Window Icon.ico</file>
+    </qresource>
+</RCC>
