@@ -1,4 +1,5 @@
-﻿#include "Elem List.h"
+﻿#pragma warning(disable: 6386)
+#include "Elem List.h"
 #include <assert.h>
 #include <ctime>
 #include <cstdlib>

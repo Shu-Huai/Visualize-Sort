@@ -8,8 +8,8 @@ class Sort :public QObject
 public:
 	Sort(QObject* parent = NULL);
 	void BubbleSort(ElemList<int>& list);
-	//	static void OptimizedBubbleSort(ElemList<int>& list);
-	//	static void CockTailSort(ElemList<int>& list);
+	void OptimizedBubbleSort(ElemList<int>& list);
+	void CockTailSort(ElemList<int>& list);
 	//	static void QuickSort(ElemList<int>& list);
 	//	static void StraightInsertSort(ElemList<int>& list);
 	//	static void BinaryInsertSort(ElemList<int>& list);
@@ -116,77 +116,6 @@ signals:
 //	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), COORD{ 0,0 });
 //	cout << list;
 //	list.HideRange(low, high + 1);
-//}
-//void Sort::OptimizedBubbleSort(ElemList<int>& list)
-//{
-//	for (int i = 0; i < list.GetLength(); i++)
-//	{
-//		list.ShowRange(0, list.GetLength() - i);
-//		bool isSwaped = false;
-//		for (int j = 0; j < list.GetLength() - i - 1; j++)
-//		{
-//			list.HighLight(j, 2000 / list.GetLength());
-//			list.HighLight(j + 1, 2000 / list.GetLength());
-//			if (list[j] > list[j + 1])
-//			{
-//				list.Swap(j, j + 1);
-//				SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), COORD{ 0,0 });
-//				cout << list;
-//				isSwaped = true;
-//			}
-//		}
-//		list.HideRange(0, list.GetLength() - i);
-//		if (!isSwaped)
-//		{
-//			break;
-//		}
-//	}
-//}
-//void Sort::CockTailSort(ElemList<int>& list)
-//{
-//	int left = 0;
-//	int right = list.GetLength() - 1;
-//	for (int i = 0; i < list.GetLength(); i++)
-//	{
-//		list.ShowRange(i, list.GetLength() - i);
-//		bool isSwaped = false;
-//		for (int j = i; j < list.GetLength() - i - 1; j++)
-//		{
-//			list.HighLight(j, 2000 / list.GetLength());
-//			list.HighLight(j + 1, 2000 / list.GetLength());
-//			if (list[j] > list[j + 1])
-//			{
-//				list.Swap(j, j + 1);
-//				SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), COORD{ 0,0 });
-//				cout << list;
-//				isSwaped = true;
-//			}
-//		}
-//		list.HideRange(i, list.GetLength() - i);
-//		list.ShowRange(i, list.GetLength() - i - 1);
-//		if (!isSwaped)
-//		{
-//			break;
-//		}
-//		isSwaped = false;
-//		for (int j = list.GetLength() - i - 1; j > i; j--)
-//		{
-//			list.HighLight(j, 2000 / list.GetLength());
-//			list.HighLight(j - 1, 2000 / list.GetLength());
-//			if (list[j] < list[j - 1])
-//			{
-//				list.Swap(j, j - 1);
-//				SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), COORD{ 0,0 });
-//				cout << list;
-//				isSwaped = true;
-//			}
-//		}
-//		list.HideRange(i, list.GetLength() - i - 1);
-//		if (!isSwaped)
-//		{
-//			break;
-//		}
-//	}
 //}
 //void Sort::QuickSort(ElemList<int>& list)
 //{

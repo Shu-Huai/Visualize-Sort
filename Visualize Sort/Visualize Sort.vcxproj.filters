@@ -23,7 +23,6 @@
     </QtMoc>
   </ItemGroup>
   <ItemGroup>
-    <QtRcc Include="Translator.qrc" />
     <QtRcc Include="Visualize_Sort.qrc" />
   </ItemGroup>
   <ItemGroup>

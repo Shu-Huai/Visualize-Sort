@@ -68,9 +68,17 @@ void VisualizeSort::StartSort()
 	{
 		sort_.BubbleSort(list_);
 	}
+	else if (ui_->meansCombo->currentText() == QString("优化的冒泡排序"))
+	{
+		sort_.OptimizedBubbleSort(list_);
+	}
+	else if (ui_->meansCombo->currentText() == QString("鸡尾酒排序"))
+	{
+		sort_.CockTailSort(list_);
+	}
 	isStarted_ = false;
 	ui_->meansCombo->setEnabled(true);
-		ui_->numberSpin->setEnabled(true);
+	ui_->numberSpin->setEnabled(true);
 	ui_->startButton->setEnabled(true);
 	ui_->initializeButton->setEnabled(true);
 	repaint();
