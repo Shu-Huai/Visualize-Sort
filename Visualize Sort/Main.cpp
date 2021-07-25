@@ -1,5 +1,5 @@
 ﻿#include <QtWidgets/QApplication>
-#include <qtranslator.h>
+#include <QTranslator>
 #include "Visualize Sort.h"
 int main(int argc, char* argv[])
 {

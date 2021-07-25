@@ -1,6 +1,6 @@
 ﻿#pragma once
 #include <iostream>
-#include <qobject.h>
+#include <QObject>
 #include "Elem List.cpp"
 class Sort :public QObject
 {

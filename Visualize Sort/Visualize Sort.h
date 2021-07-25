@@ -14,7 +14,7 @@ public slots:
 	void StartSort();
 	void BubbleSlot(int firstIndex, int secondIndex, bool neededSwap);
 protected:
-	Ui::VisualizeSortClass ui_;
+	Ui::VisualizeSortClass *ui_;
 	ElemList<int> list_;
 	Sort sort_;
 	int maxLength_;
