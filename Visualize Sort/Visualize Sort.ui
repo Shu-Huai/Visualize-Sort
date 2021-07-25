@@ -107,6 +107,11 @@
             <string>二分插入排序</string>
            </property>
           </item>
+          <item>
+           <property name="text">
+            <string>希尔排序</string>
+           </property>
+          </item>
          </widget>
         </item>
        </layout>

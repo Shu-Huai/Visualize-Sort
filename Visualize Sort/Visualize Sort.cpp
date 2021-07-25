@@ -64,29 +64,31 @@ void VisualizeSort::StartSort()
 	ui_->numberSpin->setEnabled(false);
 	ui_->startButton->setEnabled(false);
 	ui_->initializeButton->setEnabled(false);
-	if (ui_->meansCombo->currentText() == QString("冒泡排序"))
+	switch (ui_->meansCombo->currentIndex())
 	{
+	case 0:
 		sort_.BubbleSort(list_);
-	}
-	else if (ui_->meansCombo->currentText() == QString("优化的冒泡排序"))
-	{
+		break;
+	case 1:
 		sort_.OptimizedBubbleSort(list_);
-	}
-	else if (ui_->meansCombo->currentText() == QString("鸡尾酒排序"))
-	{
+		break;
+	case 2:
 		sort_.CockTailSort(list_);
-	}
-	else if (ui_->meansCombo->currentText() == QString("快速排序"))
-	{
+		break;
+	case 3:
 		sort_.QuickSort(list_);
-	}
-	else if (ui_->meansCombo->currentText() == QString("直接插入排序"))
-	{
+		break;
+	case 4:
 		sort_.StraightInsertSort(list_);
-	}
-	else if (ui_->meansCombo->currentText() == QString("二分插入排序"))
-	{
+		break;
+	case 5:
 		sort_.BinaryInsertSort(list_);
+		break;
+	case 6:
+		sort_.ShellSort(list_);
+		break;
+	default:
+		break;
 	}
 	isStarted_ = false;
 	ui_->meansCombo->setEnabled(true);

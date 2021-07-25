@@ -13,7 +13,7 @@ public:
 	void QuickSort(ElemList<int>& list);
 	void StraightInsertSort(ElemList<int>& list);
 	void BinaryInsertSort(ElemList<int>& list);
-	//	static void ShellSort(ElemList<int>& list);
+	void ShellSort(ElemList<int>& list);
 	//	static void CountSort(ElemList<int>& list);
 	//	static void MonkeySort(ElemList<int>& list);
 	//	static void RadixSort(ElemList<int>& list);
@@ -72,40 +72,6 @@ signals:
 //	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), COORD{ 0,0 });
 //	cout << list;
 //	list.HideRange(low, high + 1);
-//}
-//void Sort::ShellSort(ElemList<int>& list)
-//{
-//	int distance = list.GetLength() / 2;
-//	while (distance > 0)
-//	{
-//		for (int i = distance; i < list.GetLength(); i++)
-//		{
-//			int j = i - distance;
-//			ElemType temp = list[i].GetValue();
-//			for (j = i; j >= 0; j -= distance)
-//			{
-//				list.ShowRange(j, j + 1);
-//			}
-//			list.HighLight(i, 2000 / list.GetLength());
-//			for (j = i - distance; j >= 0; j -= distance)
-//			{
-//				list.HighLight(j, 2000 / list.GetLength());
-//				if (list[j] <= temp)
-//				{
-//					break;
-//				}
-//				list[j + distance] = list[j];
-//			}
-//			list[j + distance] = temp;
-//			SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), COORD{ 0,0 });
-//			cout << list;
-//			for (j = i; j >= 0; j -= distance)
-//			{
-//				list.HideRange(j, j + 1);
-//			}
-//		}
-//		distance /= 2;
-//	}
 //}
 //void Sort::CountSort(ElemList<int>& list)
 //{

@@ -134,6 +134,32 @@ void Sort::BinaryInsertSort(ElemList<int>& list)
 		emit BubbleSignal(-1, -1);
 	}
 }
+void Sort::ShellSort(ElemList<int>& list)
+{
+	int distance = list.GetLength() / 2;
+	while (distance > 0)
+	{
+		for (int i = distance; i < list.GetLength(); i++)
+		{
+			int j = i - distance;
+			int temp = list[i];
+			emit BubbleSignal(i, -1);
+			for (j = i - distance; j >= 0; j -= distance)
+			{
+				if (list[j] <= temp)
+				{
+					emit BubbleSignal(j, -1);
+					break;
+				}
+				emit BubbleSignal(j, -1, true);
+				list[j + distance] = list[j];
+			}
+			list[j + distance] = temp;
+			emit BubbleSignal(-1, -1);
+		}
+		distance /= 2;
+	}
+}
 void Sort::QuickSort(ElemList<int>& list, int low, int high)
 {
 	if (low < high)
