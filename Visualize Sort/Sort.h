@@ -12,7 +12,7 @@ public:
 	void CockTailSort(ElemList<int>& list);
 	void QuickSort(ElemList<int>& list);
 	void StraightInsertSort(ElemList<int>& list);
-	//	static void BinaryInsertSort(ElemList<int>& list);
+	void BinaryInsertSort(ElemList<int>& list);
 	//	static void ShellSort(ElemList<int>& list);
 	//	static void CountSort(ElemList<int>& list);
 	//	static void MonkeySort(ElemList<int>& list);
@@ -72,39 +72,6 @@ signals:
 //	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), COORD{ 0,0 });
 //	cout << list;
 //	list.HideRange(low, high + 1);
-//}
-//void Sort::BinaryInsertSort(ElemList<int>& list)
-//{
-//	for (int i = 1; i < list.GetLength(); i++)
-//	{
-//		list.ShowRange(0, i + 1);
-//		int low = 0;
-//		int high = i - 1;
-//		int middle = 0;
-//		ElemType key = list[i].GetValue();
-//		list.HighLight(i, 2000 / list.GetLength());
-//		while (low <= high)
-//		{
-//			middle = (low + high) / 2;
-//			list.HighLight(middle, 2000 / list.GetLength());
-//			if (list[middle] > key)
-//			{
-//				high = middle - 1;
-//			}
-//			else if (list[middle] < key)
-//			{
-//				low = middle + 1;
-//			}
-//		}
-//		for (int j = i - 1; j >= low; j--)
-//		{
-//			list[j + 1] = list[j];
-//		}
-//		list[low] = key;
-//		SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), COORD{ 0,0 });
-//		cout << list;
-//		list.HideRange(0, i + 1);
-//	}
 //}
 //void Sort::ShellSort(ElemList<int>& list)
 //{

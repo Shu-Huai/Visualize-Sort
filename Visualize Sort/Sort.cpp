@@ -102,6 +102,38 @@ void Sort::StraightInsertSort(ElemList<int>& list)
 		emit BubbleSignal(-1, -1);
 	}
 }
+void Sort::BinaryInsertSort(ElemList<int>& list)
+{
+	for (int i = 1; i < list.GetLength(); i++)
+	{
+		int low = 0;
+		int high = i - 1;
+		int middle = 0;
+		int key = list[i];
+		emit BubbleSignal(i, -1);
+		while (low <= high)
+		{
+			middle = (low + high) / 2;
+			emit BubbleSignal(middle, -1);
+			if (list[middle] > key)
+			{
+				emit BubbleSignal(middle, -1, true);
+				high = middle - 1;
+			}
+			else if (list[middle] < key)
+			{
+				emit BubbleSignal(middle, -1, true);
+				low = middle + 1;
+			}
+		}
+		for (int j = i - 1; j >= low; j--)
+		{
+			list[j + 1] = list[j];
+		}
+		list[low] = key;
+		emit BubbleSignal(-1, -1);
+	}
+}
 void Sort::QuickSort(ElemList<int>& list, int low, int high)
 {
 	if (low < high)

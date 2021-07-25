@@ -102,6 +102,11 @@
             <string>直接插入排序</string>
            </property>
           </item>
+          <item>
+           <property name="text">
+            <string>二分插入排序</string>
+           </property>
+          </item>
          </widget>
         </item>
        </layout>

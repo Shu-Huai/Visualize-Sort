@@ -84,6 +84,10 @@ void VisualizeSort::StartSort()
 	{
 		sort_.StraightInsertSort(list_);
 	}
+	else if (ui_->meansCombo->currentText() == QString("二分插入排序"))
+	{
+		sort_.BinaryInsertSort(list_);
+	}
 	isStarted_ = false;
 	ui_->meansCombo->setEnabled(true);
 	ui_->numberSpin->setEnabled(true);
