@@ -76,3 +76,46 @@ void Sort::CockTailSort(ElemList<int>& list)
 		}
 	}
 }
+void Sort::QuickSort(ElemList<int>& list)
+{
+	QuickSort(list, 0, list.GetLength() - 1);
+}
+void Sort::QuickSort(ElemList<int>& list, int low, int high)
+{
+	if (low < high)
+	{
+		int referenceValue = list[low];
+		int i = low;
+		int j = high;
+		while (i < j)
+		{
+			while (i < j && list[j] >= referenceValue)
+			{
+				emit BubbleSignal(j, -1);
+				j--;
+			}
+			if (i < j)
+			{
+				emit BubbleSignal(j, -1, true);
+				list[i] = list[j];
+				emit BubbleSignal(j, -1);
+				i++;
+			}
+			while (i < j && list[i] <= referenceValue)
+			{
+				emit BubbleSignal(i, -1);
+				i++;
+			}
+			if (i < j)
+			{
+				emit BubbleSignal(i, -1, true);
+				list[j] = list[i];
+				emit BubbleSignal(i, -1);
+				j--;
+			}
+		}
+		list[i] = referenceValue;
+		QuickSort(list, low, i - 1);
+		QuickSort(list, i + 1, high);
+	}
+}

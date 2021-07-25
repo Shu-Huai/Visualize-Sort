@@ -76,6 +76,10 @@ void VisualizeSort::StartSort()
 	{
 		sort_.CockTailSort(list_);
 	}
+	else if (ui_->meansCombo->currentText() == QString("快速排序"))
+	{
+		sort_.QuickSort(list_);
+	}
 	isStarted_ = false;
 	ui_->meansCombo->setEnabled(true);
 	ui_->numberSpin->setEnabled(true);

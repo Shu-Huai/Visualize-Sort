@@ -10,7 +10,7 @@ public:
 	void BubbleSort(ElemList<int>& list);
 	void OptimizedBubbleSort(ElemList<int>& list);
 	void CockTailSort(ElemList<int>& list);
-	//	static void QuickSort(ElemList<int>& list);
+	void QuickSort(ElemList<int>& list);
 	//	static void StraightInsertSort(ElemList<int>& list);
 	//	static void BinaryInsertSort(ElemList<int>& list);
 	//	static void ShellSort(ElemList<int>& list);
@@ -18,56 +18,12 @@ public:
 	//	static void MonkeySort(ElemList<int>& list);
 	//	static void RadixSort(ElemList<int>& list);
 	//	static void MergeSort(ElemList<int>& list);
-	//protected:
-	//	static void QuickSort(ElemList<int>& list, int low, int high);
+protected:
+	void QuickSort(ElemList<int>& list, int low, int high);
 	//	static void Merge(ElemList<int>& list, int low, int middle, int high);
 signals:
 	void BubbleSignal(int firstIndex, int secondIndex, bool neededSwap = false);
 };
-//void Sort::QuickSort(ElemList<int>& list, int low, int high)
-//{
-//	if (low < high)
-//	{
-//		list.ShowRange(low, high);
-//		int referenceValue = list[low];
-//		int i = low;
-//		int j = high;
-//		list.HighLight(low, 2000 / list.GetLength());
-//		while (i < j)
-//		{
-//			while (i < j && list[j] >= referenceValue)
-//			{
-//				list.HighLight(j, 2000 / list.GetLength());
-//				j--;
-//			}
-//			if (i < j)
-//			{
-//				list[i] = list[j];
-//				i++;
-//				SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), COORD{ 0,0 });
-//				cout << list;
-//			}
-//			while (i < j && list[i] <= referenceValue)
-//			{
-//				list.HighLight(i, 2000 / list.GetLength());
-//				i++;
-//			}
-//			if (i < j)
-//			{
-//				list[j] = list[i];
-//				j--;
-//				SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), COORD{ 0,0 });
-//				cout << list;
-//			}
-//		}
-//		list[i] = referenceValue;
-//		SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), COORD{ 0,0 });
-//		cout << list;
-//		list.HideRange(low, high);
-//		QuickSort(list, low, i - 1);
-//		QuickSort(list, i + 1, high);
-//	}
-//}
 //void Sort::Merge(ElemList<int>& list, int low, int middle, int high)
 //{
 //	list.ShowRange(low, high + 1);
@@ -116,10 +72,6 @@ signals:
 //	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), COORD{ 0,0 });
 //	cout << list;
 //	list.HideRange(low, high + 1);
-//}
-//void Sort::QuickSort(ElemList<int>& list)
-//{
-//	QuickSort(list, 0, list.GetLength() - 1);
 //}
 //void Sort::StraightInsertSort(ElemList<int>& list)
 //{
