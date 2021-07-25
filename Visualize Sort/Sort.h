@@ -11,7 +11,7 @@ public:
 	void OptimizedBubbleSort(ElemList<int>& list);
 	void CockTailSort(ElemList<int>& list);
 	void QuickSort(ElemList<int>& list);
-	//	static void StraightInsertSort(ElemList<int>& list);
+	void StraightInsertSort(ElemList<int>& list);
 	//	static void BinaryInsertSort(ElemList<int>& list);
 	//	static void ShellSort(ElemList<int>& list);
 	//	static void CountSort(ElemList<int>& list);
@@ -72,29 +72,6 @@ signals:
 //	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), COORD{ 0,0 });
 //	cout << list;
 //	list.HideRange(low, high + 1);
-//}
-//void Sort::StraightInsertSort(ElemList<int>& list)
-//{
-//	for (int i = 1; i < list.GetLength(); i++)
-//	{
-//		list.ShowRange(0, i + 1);
-//		int j = i - 1;
-//		ElemType temp = list[i].GetValue();
-//		list.HighLight(i, 2000 / list.GetLength());
-//		for (j = i - 1; j >= 0; j--)
-//		{
-//			list.HighLight(j, 2000 / list.GetLength());
-//			if (list[j] <= temp)
-//			{
-//				break;
-//			}
-//			list[j + 1] = list[j];
-//		}
-//		list[j + 1] = temp;
-//		SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), COORD{ 0,0 });
-//		cout << list;
-//		list.HideRange(0, i + 1);
-//	}
 //}
 //void Sort::BinaryInsertSort(ElemList<int>& list)
 //{

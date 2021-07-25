@@ -66,6 +66,7 @@ void Sort::CockTailSort(ElemList<int>& list)
 			{
 				emit BubbleSignal(j, j - 1, true);
 				list.Swap(j, j - 1);
+				emit BubbleSignal(j, j - 1);
 				isSwaped = true;
 			}
 			emit BubbleSignal(j, j - 1);
@@ -79,6 +80,27 @@ void Sort::CockTailSort(ElemList<int>& list)
 void Sort::QuickSort(ElemList<int>& list)
 {
 	QuickSort(list, 0, list.GetLength() - 1);
+}
+void Sort::StraightInsertSort(ElemList<int>& list)
+{
+	for (int i = 1; i < list.GetLength(); i++)
+	{
+		int j = i - 1;
+		int temp = list[i];
+		emit BubbleSignal(i, -1);
+		for (j = i - 1; j >= 0; j--)
+		{
+			if (list[j] <= temp)
+			{
+				emit BubbleSignal(j, -1);
+				break;
+			}
+			emit BubbleSignal(j, -1, true);
+			list[j + 1] = list[j];
+		}
+		list[j + 1] = temp;
+		emit BubbleSignal(-1, -1);
+	}
 }
 void Sort::QuickSort(ElemList<int>& list, int low, int high)
 {
@@ -98,7 +120,7 @@ void Sort::QuickSort(ElemList<int>& list, int low, int high)
 			{
 				emit BubbleSignal(j, -1, true);
 				list[i] = list[j];
-				emit BubbleSignal(j, -1);
+				emit BubbleSignal(-1, -1);
 				i++;
 			}
 			while (i < j && list[i] <= referenceValue)
@@ -110,7 +132,7 @@ void Sort::QuickSort(ElemList<int>& list, int low, int high)
 			{
 				emit BubbleSignal(i, -1, true);
 				list[j] = list[i];
-				emit BubbleSignal(i, -1);
+				emit BubbleSignal(-1, -1);
 				j--;
 			}
 		}

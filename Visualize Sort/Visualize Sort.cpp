@@ -80,6 +80,10 @@ void VisualizeSort::StartSort()
 	{
 		sort_.QuickSort(list_);
 	}
+	else if (ui_->meansCombo->currentText() == QString("直接插入排序"))
+	{
+		sort_.StraightInsertSort(list_);
+	}
 	isStarted_ = false;
 	ui_->meansCombo->setEnabled(true);
 	ui_->numberSpin->setEnabled(true);

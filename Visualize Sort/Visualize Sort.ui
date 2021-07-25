@@ -97,6 +97,11 @@
             <string>快速排序</string>
            </property>
           </item>
+          <item>
+           <property name="text">
+            <string>直接插入排序</string>
+           </property>
+          </item>
          </widget>
         </item>
        </layout>
