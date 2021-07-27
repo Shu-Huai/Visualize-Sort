@@ -127,6 +127,11 @@
             <string>基数排序</string>
            </property>
           </item>
+          <item>
+           <property name="text">
+            <string>归并排序</string>
+           </property>
+          </item>
          </widget>
         </item>
        </layout>

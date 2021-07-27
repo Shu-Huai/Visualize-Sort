@@ -233,6 +233,24 @@ void Sort::RadixSort(ElemList<int>& list)
 		emit BubbleSignal(-1, -1);
 	}
 }
+void Sort::MergeSort(ElemList<int>& list)
+{
+	int intervalLength = 1;
+	while (intervalLength < list.GetLength())
+	{
+		int index = 0;
+		while (index + 2 * intervalLength <= list.GetLength())
+		{
+			Merge(list, index, index + intervalLength - 1, index + 2 * intervalLength - 1);
+			index += 2 * intervalLength;
+		}
+		if (index + intervalLength < list.GetLength())
+		{
+			Merge(list, index, index + intervalLength - 1, list.GetLength() - 1);
+		}
+		intervalLength *= 2;
+	}
+}
 void Sort::QuickSort(ElemList<int>& list, int low, int high)
 {
 	if (low < high)
@@ -271,4 +289,52 @@ void Sort::QuickSort(ElemList<int>& list, int low, int high)
 		QuickSort(list, low, i - 1);
 		QuickSort(list, i + 1, high);
 	}
+}
+void Sort::Merge(ElemList<int>& list, int low, int middle, int high)
+{
+	ElemList<int> result(high + 1);
+	for (int i = 0; i < high + 1; i++)
+	{
+		result.AppendElem(0);
+	}
+	int i = low;
+	int j = middle + 1;
+	int k = low;
+	while (i <= middle && j <= high)
+	{
+		emit BubbleSignal(i, j);
+		emit BubbleSignal(i, j, true);
+		if (list[i] <= list[j])
+		{
+			result[k] = list[i];
+			i++;
+		}
+		else
+		{
+			result[k] = list[j];
+			j++;
+		}
+		k++;
+	}
+	while (i <= middle)
+	{
+		emit BubbleSignal(i, -1);
+		emit BubbleSignal(i, -1, true);
+		result[k] = list[i];
+		k++;
+		i++;
+	}
+	while (j <= high)
+	{
+		emit BubbleSignal(-1, j);
+		emit BubbleSignal(-1, j, true);
+		result[k] = list[j];
+		k++;
+		j++;
+	}
+	for (k = low; k <= high; k++)
+	{
+		list[k] = result[k];
+	}
+	emit BubbleSignal(-1, -1);
 }

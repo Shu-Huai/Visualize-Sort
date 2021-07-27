@@ -96,6 +96,9 @@ void VisualizeSort::StartSort()
 	case 9:
 		sort_.RadixSort(list_);
 		break;
+	case 10:
+		sort_.MergeSort(list_);
+		break;
 	default:
 		break;
 	}
