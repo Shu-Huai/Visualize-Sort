@@ -87,6 +87,12 @@ void VisualizeSort::StartSort()
 	case 6:
 		sort_.ShellSort(list_);
 		break;
+	case 7:
+		sort_.CountSort(list_);
+		break;
+	case 8:
+		sort_.MonkeySort(list_);
+		break;
 	default:
 		break;
 	}

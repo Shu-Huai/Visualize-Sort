@@ -112,6 +112,16 @@
             <string>希尔排序</string>
            </property>
           </item>
+          <item>
+           <property name="text">
+            <string>计数排序</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>猴子排序</string>
+           </property>
+          </item>
          </widget>
         </item>
        </layout>

@@ -14,8 +14,8 @@ public:
 	void StraightInsertSort(ElemList<int>& list);
 	void BinaryInsertSort(ElemList<int>& list);
 	void ShellSort(ElemList<int>& list);
-	//	static void CountSort(ElemList<int>& list);
-	//	static void MonkeySort(ElemList<int>& list);
+	void CountSort(ElemList<int>& list);
+	void MonkeySort(ElemList<int>& list);
 	//	static void RadixSort(ElemList<int>& list);
 	//	static void MergeSort(ElemList<int>& list);
 protected:
@@ -72,52 +72,6 @@ signals:
 //	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), COORD{ 0,0 });
 //	cout << list;
 //	list.HideRange(low, high + 1);
-//}
-//void Sort::CountSort(ElemList<int>& list)
-//{
-//	int* indexes = new int[list.GetLength()]{ 0 };
-//	for (int i = 0; i < list.GetLength(); i++)
-//	{
-//		for (int j = 0; j < list.GetLength(); j++)
-//		{
-//			if (i == j)
-//			{
-//				continue;
-//			}
-//			list.HighLight(i, 2000 / list.GetLength());
-//			list.HighLight(j, 2000 / list.GetLength());
-//			if (list[j] < list[i])
-//			{
-//				indexes[i]++;
-//			}
-//			SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), COORD{ short(list.GetLength() * 2 + 3),short(i) });
-//			cout << setw(2) << indexes[i];
-//		}
-//	}
-//	ElemList<int> result(list.GetLength());
-//	for (int i = 0; i < list.GetLength(); i++)
-//	{
-//		result.AppendElem(i);
-//	}
-//	for (int i = 0; i < list.GetLength(); i++)
-//	{
-//		result[indexes[i]] = list[i];
-//	}
-//	list = result;
-//	delete[] indexes;
-//	list.HideRange(0, list.GetLength());
-//}
-//void Sort::MonkeySort(ElemList<int>& list)
-//{
-//	bool isSorted = list.IsSorted();
-//	while (!isSorted)
-//	{
-//		list.ShowRange(0, list.GetLength());
-//		list.HighLightAll(10);
-//		list.RandomOrder();
-//		isSorted = list.IsSorted();
-//		list.HideRange(0, list.GetLength());
-//	}
 //}
 //void Sort::RadixSort(ElemList<int>& list)
 //{

@@ -1,4 +1,5 @@
-﻿#include "Sort.h"
+﻿#pragma warning (disable:6385)
+#include "Sort.h"
 Sort::Sort(QObject* parent) : QObject(parent)
 {
 }
@@ -158,6 +159,46 @@ void Sort::ShellSort(ElemList<int>& list)
 			emit BubbleSignal(-1, -1);
 		}
 		distance /= 2;
+	}
+}
+void Sort::CountSort(ElemList<int>& list)
+{
+	int* indexes = new int[list.GetLength()]{ 0 };
+	for (int i = 0; i < list.GetLength(); i++)
+	{
+		for (int j = 0; j < list.GetLength(); j++)
+		{
+			if (i == j)
+			{
+				continue;
+			}
+			emit BubbleSignal(i, j);
+			if (list[j] < list[i])
+			{
+				indexes[i]++;
+			}
+		}
+	}
+	ElemList<int> result(list.GetLength());
+	for (int i = 0; i < list.GetLength(); i++)
+	{
+		result.AppendElem(i);
+	}
+	for (int i = 0; i < list.GetLength(); i++)
+	{
+		result[indexes[i]] = list[i];
+	}
+	list = result;
+	delete[] indexes;
+}
+void Sort::MonkeySort(ElemList<int>& list)
+{
+	bool isSorted = list.IsSorted();
+	while (!isSorted)
+	{
+		list.RandomOrder();
+		emit BubbleSignal(-1, -1);
+		isSorted = list.IsSorted();
 	}
 }
 void Sort::QuickSort(ElemList<int>& list, int low, int high)
