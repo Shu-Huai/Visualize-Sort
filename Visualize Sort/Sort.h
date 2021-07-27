@@ -16,7 +16,7 @@ public:
 	void ShellSort(ElemList<int>& list);
 	void CountSort(ElemList<int>& list);
 	void MonkeySort(ElemList<int>& list);
-	//	static void RadixSort(ElemList<int>& list);
+	void RadixSort(ElemList<int>& list);
 	//	static void MergeSort(ElemList<int>& list);
 protected:
 	void QuickSort(ElemList<int>& list, int low, int high);
@@ -72,52 +72,6 @@ signals:
 //	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), COORD{ 0,0 });
 //	cout << list;
 //	list.HideRange(low, high + 1);
-//}
-//void Sort::RadixSort(ElemList<int>& list)
-//{
-//	for (int i = 1; list[0].GetMaxValue() / i > 0; i *= 10)
-//	{
-//		int* counts = new int[10]{ 0 };
-//		for (int j = 0; j < list.GetLength(); j++)
-//		{
-//			counts[(list[j].GetValue() / i) % 10]++;
-//		}
-//		list.HighLightAll(2000 / list.GetLength());
-//		for (int j = 0; j < list.GetLength(); j++)
-//		{
-//			SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), COORD{ short(list.GetLength() * 2 + 3),short(j) });
-//			cout << setw(2) << counts[(list[j].GetValue() / i) % 10];
-//		}
-//		int* indexes = new int[10]{ 0 };
-//		for (int j = 1; j < 10; j++)
-//		{
-//			indexes[j] = indexes[j - 1] + counts[j - 1];
-//		}
-//		list.HighLightAll(2000 / list.GetLength());
-//		for (int j = 0; j < list.GetLength(); j++)
-//		{
-//			SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), COORD{ short(list.GetLength() * 2 + 3),short(j) });
-//			cout << setw(2) << indexes[(list[j].GetValue() / i) % 10];
-//		}
-//		delete[]counts;
-//		ElemType* result = new ElemType[list.GetLength()]{ 0 };
-//		for (int j = 0; j < list.GetLength(); j++)
-//		{
-//			SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), COORD{ short(list.GetLength() * 2 + 3),short(j) });
-//			cout << setw(2) << indexes[(list[j].GetValue() / i) % 10];
-//			result[indexes[(list[j].GetValue() / i) % 10]] = list[j].GetValue();
-//			indexes[(list[j].GetValue() / i) % 10]++;
-//			list.HighLight(j, 2000 / list.GetLength());
-//		}
-//		delete[]indexes;
-//		for (int j = 0; j < list.GetLength(); j++)
-//		{
-//			list[j] = result[j];
-//		}
-//		list.HighLightAll(10);
-//		list.HideRange(0, list.GetLength());
-//		delete[]result;
-//	}
 //}
 //void Sort::MergeSort(ElemList<int>& list)
 //{

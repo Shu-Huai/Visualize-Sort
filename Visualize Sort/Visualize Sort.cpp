@@ -93,6 +93,9 @@ void VisualizeSort::StartSort()
 	case 8:
 		sort_.MonkeySort(list_);
 		break;
+	case 9:
+		sort_.RadixSort(list_);
+		break;
 	default:
 		break;
 	}
