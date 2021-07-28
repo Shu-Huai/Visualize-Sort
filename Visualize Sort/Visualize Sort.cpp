@@ -1,6 +1,6 @@
 ﻿#include "Visualize Sort.h"
-#include <Windows.h>
 #include <QPainter>
+#include <QThread>
 VisualizeSort::VisualizeSort(int maxLength, QWidget* parent) : QMainWindow(parent), maxLength_(maxLength), isStarted_(false)
 {
 	ui_ = new Ui::VisualizeSortClass;
@@ -48,7 +48,15 @@ void VisualizeSort::paintEvent(QPaintEvent* event)
 	}
 	if (isStarted_)
 	{
-		Sleep(ui_->timeSpin->value());
+		class SleepThread : public QThread
+		{
+		public:
+			static void Sleep(int time)
+			{
+				QThread::msleep(time);
+			}
+		};
+		SleepThread::Sleep(ui_->timeSpin->value());
 	}
 	painter.end();
 }

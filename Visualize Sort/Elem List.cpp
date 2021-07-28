@@ -2,7 +2,6 @@
 #include "Elem List.h"
 #include <assert.h>
 #include <ctime>
-#include <cstdlib>
 #include <iostream>
 template <class ElemType>
 ElemList<ElemType>::ElemList(int length, int maxLength) : length_(length), maxLength_(maxLength)
