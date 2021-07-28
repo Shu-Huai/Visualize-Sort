@@ -11,7 +11,7 @@ VisualizeSort::VisualizeSort(int maxLength, QWidget* parent) : QMainWindow(paren
 	connect(ui_->numberSpin, SIGNAL(valueChanged(int)), this, SLOT(repaint()));
 	connect(ui_->initializeButton, SIGNAL(clicked()), this, SLOT(RandomInitialize()));
 	connect(ui_->startButton, SIGNAL(clicked()), this, SLOT(StartSort()));
-	connect(&sort_, SIGNAL(BubbleSignal(int, int, bool)), this, SLOT(BubbleSlot(int, int, bool)));
+	connect(&sort_, SIGNAL(RepaintSignal(int, int, bool)), this, SLOT(RepaintSlot(int, int, bool)));
 	list_ = ElemList<int>(ui_->numberSpin->value(), maxLength_);
 }
 VisualizeSort::~VisualizeSort()
@@ -109,7 +109,7 @@ void VisualizeSort::StartSort()
 	ui_->initializeButton->setEnabled(true);
 	repaint();
 }
-void VisualizeSort::BubbleSlot(int firstIndex, int secondIndex, bool neededSwap)
+void VisualizeSort::RepaintSlot(int firstIndex, int secondIndex, bool neededSwap)
 {
 	firstIndex_ = firstIndex;
 	secondIndex_ = secondIndex;

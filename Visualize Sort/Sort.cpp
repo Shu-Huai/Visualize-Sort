@@ -11,10 +11,10 @@ void Sort::BubbleSort(ElemList<int>& list)
 		{
 			if (list[j] > list[j + 1])
 			{
-				emit BubbleSignal(j, j + 1, true);
+				emit RepaintSignal(j, j + 1, true);
 				list.Swap(j, j + 1);
 			}
-			emit BubbleSignal(j, j + 1);
+			emit RepaintSignal(j, j + 1);
 		}
 	}
 }
@@ -27,11 +27,11 @@ void Sort::OptimizedBubbleSort(ElemList<int>& list)
 		{
 			if (list[j] > list[j + 1])
 			{
-				emit BubbleSignal(j, j + 1, true);
+				emit RepaintSignal(j, j + 1, true);
 				list.Swap(j, j + 1);
 				isSwaped = true;
 			}
-			emit BubbleSignal(j, j + 1);
+			emit RepaintSignal(j, j + 1);
 		}
 		if (!isSwaped)
 		{
@@ -50,11 +50,11 @@ void Sort::CockTailSort(ElemList<int>& list)
 		{
 			if (list[j] > list[j + 1])
 			{
-				emit BubbleSignal(j, j + 1, true);
+				emit RepaintSignal(j, j + 1, true);
 				list.Swap(j, j + 1);
 				isSwaped = true;
 			}
-			emit BubbleSignal(j, j + 1);
+			emit RepaintSignal(j, j + 1);
 		}
 		if (!isSwaped)
 		{
@@ -65,12 +65,12 @@ void Sort::CockTailSort(ElemList<int>& list)
 		{
 			if (list[j] < list[j - 1])
 			{
-				emit BubbleSignal(j, j - 1, true);
+				emit RepaintSignal(j, j - 1, true);
 				list.Swap(j, j - 1);
-				emit BubbleSignal(j, j - 1);
+				emit RepaintSignal(j, j - 1);
 				isSwaped = true;
 			}
-			emit BubbleSignal(j, j - 1);
+			emit RepaintSignal(j, j - 1);
 		}
 		if (!isSwaped)
 		{
@@ -88,19 +88,19 @@ void Sort::StraightInsertSort(ElemList<int>& list)
 	{
 		int j = i - 1;
 		int temp = list[i];
-		emit BubbleSignal(i, -1);
+		emit RepaintSignal(i, -1);
 		for (j = i - 1; j >= 0; j--)
 		{
 			if (list[j] <= temp)
 			{
-				emit BubbleSignal(j, -1);
+				emit RepaintSignal(j, -1);
 				break;
 			}
-			emit BubbleSignal(j, -1, true);
+			emit RepaintSignal(j, -1, true);
 			list[j + 1] = list[j];
 		}
 		list[j + 1] = temp;
-		emit BubbleSignal(-1, -1);
+		emit RepaintSignal(-1, -1);
 	}
 }
 void Sort::BinaryInsertSort(ElemList<int>& list)
@@ -111,19 +111,19 @@ void Sort::BinaryInsertSort(ElemList<int>& list)
 		int high = i - 1;
 		int middle = 0;
 		int key = list[i];
-		emit BubbleSignal(i, -1);
+		emit RepaintSignal(i, -1);
 		while (low <= high)
 		{
 			middle = (low + high) / 2;
-			emit BubbleSignal(middle, -1);
+			emit RepaintSignal(middle, -1);
 			if (list[middle] > key)
 			{
-				emit BubbleSignal(middle, -1, true);
+				emit RepaintSignal(middle, -1, true);
 				high = middle - 1;
 			}
 			else if (list[middle] < key)
 			{
-				emit BubbleSignal(middle, -1, true);
+				emit RepaintSignal(middle, -1, true);
 				low = middle + 1;
 			}
 		}
@@ -132,7 +132,7 @@ void Sort::BinaryInsertSort(ElemList<int>& list)
 			list[j + 1] = list[j];
 		}
 		list[low] = key;
-		emit BubbleSignal(-1, -1);
+		emit RepaintSignal(-1, -1);
 	}
 }
 void Sort::ShellSort(ElemList<int>& list)
@@ -144,19 +144,19 @@ void Sort::ShellSort(ElemList<int>& list)
 		{
 			int j = i - distance;
 			int temp = list[i];
-			emit BubbleSignal(i, -1);
+			emit RepaintSignal(i, -1);
 			for (j = i - distance; j >= 0; j -= distance)
 			{
 				if (list[j] <= temp)
 				{
-					emit BubbleSignal(j, -1);
+					emit RepaintSignal(j, -1);
 					break;
 				}
-				emit BubbleSignal(j, -1, true);
+				emit RepaintSignal(j, -1, true);
 				list[j + distance] = list[j];
 			}
 			list[j + distance] = temp;
-			emit BubbleSignal(-1, -1);
+			emit RepaintSignal(-1, -1);
 		}
 		distance /= 2;
 	}
@@ -172,7 +172,7 @@ void Sort::CountSort(ElemList<int>& list)
 			{
 				continue;
 			}
-			emit BubbleSignal(i, j);
+			emit RepaintSignal(i, j);
 			if (list[j] < list[i])
 			{
 				indexes[i]++;
@@ -197,7 +197,7 @@ void Sort::MonkeySort(ElemList<int>& list)
 	while (!isSorted)
 	{
 		list.RandomOrder();
-		emit BubbleSignal(-1, -1);
+		emit RepaintSignal(-1, -1);
 		isSorted = list.IsSorted();
 	}
 }
@@ -209,7 +209,7 @@ void Sort::RadixSort(ElemList<int>& list)
 		for (int j = 0; j < list.GetLength(); j++)
 		{
 			counts[(list[j] / i) % 10]++;
-			emit BubbleSignal(j, -1);
+			emit RepaintSignal(j, -1);
 		}
 		int* indexes = new int[10]{ 0 };
 		for (int j = 1; j < 10; j++)
@@ -222,7 +222,7 @@ void Sort::RadixSort(ElemList<int>& list)
 		{
 			result[indexes[(list[j] / i) % 10]] = list[j];
 			indexes[(list[j] / i) % 10]++;
-			emit BubbleSignal(j, -1);
+			emit RepaintSignal(j, -1);
 		}
 		delete[]indexes;
 		for (int j = 0; j < list.GetLength(); j++)
@@ -230,7 +230,7 @@ void Sort::RadixSort(ElemList<int>& list)
 			list[j] = result[j];
 		}
 		delete[]result;
-		emit BubbleSignal(-1, -1);
+		emit RepaintSignal(-1, -1);
 	}
 }
 void Sort::MergeSort(ElemList<int>& list)
@@ -262,26 +262,26 @@ void Sort::QuickSort(ElemList<int>& list, int low, int high)
 		{
 			while (i < j && list[j] >= referenceValue)
 			{
-				emit BubbleSignal(j, -1);
+				emit RepaintSignal(j, -1);
 				j--;
 			}
 			if (i < j)
 			{
-				emit BubbleSignal(j, -1, true);
+				emit RepaintSignal(j, -1, true);
 				list[i] = list[j];
-				emit BubbleSignal(-1, -1);
+				emit RepaintSignal(-1, -1);
 				i++;
 			}
 			while (i < j && list[i] <= referenceValue)
 			{
-				emit BubbleSignal(i, -1);
+				emit RepaintSignal(i, -1);
 				i++;
 			}
 			if (i < j)
 			{
-				emit BubbleSignal(i, -1, true);
+				emit RepaintSignal(i, -1, true);
 				list[j] = list[i];
-				emit BubbleSignal(-1, -1);
+				emit RepaintSignal(-1, -1);
 				j--;
 			}
 		}
@@ -302,8 +302,8 @@ void Sort::Merge(ElemList<int>& list, int low, int middle, int high)
 	int k = low;
 	while (i <= middle && j <= high)
 	{
-		emit BubbleSignal(i, j);
-		emit BubbleSignal(i, j, true);
+		emit RepaintSignal(i, j);
+		emit RepaintSignal(i, j, true);
 		if (list[i] <= list[j])
 		{
 			result[k] = list[i];
@@ -318,16 +318,16 @@ void Sort::Merge(ElemList<int>& list, int low, int middle, int high)
 	}
 	while (i <= middle)
 	{
-		emit BubbleSignal(i, -1);
-		emit BubbleSignal(i, -1, true);
+		emit RepaintSignal(i, -1);
+		emit RepaintSignal(i, -1, true);
 		result[k] = list[i];
 		k++;
 		i++;
 	}
 	while (j <= high)
 	{
-		emit BubbleSignal(-1, j);
-		emit BubbleSignal(-1, j, true);
+		emit RepaintSignal(-1, j);
+		emit RepaintSignal(-1, j, true);
 		result[k] = list[j];
 		k++;
 		j++;
@@ -336,5 +336,5 @@ void Sort::Merge(ElemList<int>& list, int low, int middle, int high)
 	{
 		list[k] = result[k];
 	}
-	emit BubbleSignal(-1, -1);
+	emit RepaintSignal(-1, -1);
 }

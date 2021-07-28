@@ -12,6 +12,7 @@ int main(int argc, char* argv[])
 	VisualizeSort mainWidget(265);
 	mainWidget.setWindowIcon(QIcon(":/VisualizeSort/Visualize Sort Window Icon.ico"));
 	mainWidget.setWindowTitle(QString("排序可视化"));
+	mainWidget.setWindowState(Qt::WindowMaximized);
 	mainWidget.show();
 	return application.exec();
 }

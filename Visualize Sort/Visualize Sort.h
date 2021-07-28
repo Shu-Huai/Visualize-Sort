@@ -12,7 +12,7 @@ public:
 public slots:
 	void RandomInitialize();
 	void StartSort();
-	void BubbleSlot(int firstIndex, int secondIndex, bool neededSwap);
+	void RepaintSlot(int firstIndex, int secondIndex, bool neededSwap);
 protected:
 	Ui::VisualizeSortClass *ui_;
 	ElemList<int> list_;

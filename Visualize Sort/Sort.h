@@ -22,5 +22,5 @@ protected:
 	void QuickSort(ElemList<int>& list, int low, int high);
 	void Merge(ElemList<int>& list, int low, int middle, int high);
 signals:
-	void BubbleSignal(int firstIndex, int secondIndex, bool neededSwap = false);
+	void RepaintSignal(int firstIndex, int secondIndex, bool neededSwap = false);
 };
