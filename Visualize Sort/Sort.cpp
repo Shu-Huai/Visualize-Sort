@@ -158,19 +158,21 @@ void Sort::ShellSort(ElemList<int>& list)
 		{
 			int j = i - distance;
 			int temp = list[i];
-			emit RepaintSignal(i, -1);
+			emit RepaintSignal(true, i, temp, true);
+			SleepThread::Sleep(time_);
 			for (j = i - distance; j >= 0; j -= distance)
 			{
 				if (list[j] <= temp)
 				{
-					emit RepaintSignal(j, -1);
+					emit RepaintSignal(false, j, temp);
+					SleepThread::Sleep(time_);
 					break;
 				}
-				emit RepaintSignal(j, -1, true);
+				emit RepaintSignal(false, j, temp, true);
+				SleepThread::Sleep(time_);
 				list[j + distance] = list[j];
 			}
 			list[j + distance] = temp;
-			emit RepaintSignal(-1, -1);
 		}
 		distance /= 2;
 	}
