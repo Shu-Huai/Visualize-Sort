@@ -18,7 +18,10 @@ public:
 	void MonkeySort(ElemList<int>& list);
 	void RadixSort(ElemList<int>& list);
 	void MergeSort(ElemList<int>& list);
+public slots:
+	void SetTime(int time);
 protected:
+	int time_;
 	void QuickSort(ElemList<int>& list, int low, int high);
 	void Merge(ElemList<int>& list, int low, int middle, int high);
 signals:

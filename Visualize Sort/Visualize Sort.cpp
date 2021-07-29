@@ -1,6 +1,5 @@
 ﻿#include "Visualize Sort.h"
 #include <QPainter>
-#include <QThread>
 VisualizeSort::VisualizeSort(int maxLength, QWidget* parent) : QMainWindow(parent), maxLength_(maxLength), isStarted_(false)
 {
 	ui_ = new Ui::VisualizeSortClass;
@@ -12,7 +11,9 @@ VisualizeSort::VisualizeSort(int maxLength, QWidget* parent) : QMainWindow(paren
 	connect(ui_->initializeButton, SIGNAL(clicked()), this, SLOT(RandomInitialize()));
 	connect(ui_->startButton, SIGNAL(clicked()), this, SLOT(StartSort()));
 	connect(&sort_, SIGNAL(RepaintSignal(int, int, bool)), this, SLOT(RepaintSlot(int, int, bool)));
+	connect(ui_->timeSpin, SIGNAL(valueChanged(int)), &sort_, SLOT(SetTime(int)));
 	list_ = ElemList<int>(ui_->numberSpin->value(), maxLength_);
+	sort_.SetTime(ui_->timeSpin->value());
 }
 VisualizeSort::~VisualizeSort()
 {
@@ -23,8 +24,8 @@ void VisualizeSort::paintEvent(QPaintEvent* event)
 	list_.SetLength(ui_->numberSpin->value());
 	QPainter painter(this);
 	painter.begin(this);
-	double unitWidth = (ui_->canvasPanel->width() - 20) / ui_->numberSpin->value();
-	double unitHeight = (ui_->canvasPanel->height() - 20) / ui_->numberSpin->value();
+	double unitWidth = (ui_->canvasPanel->width() - 20) / (ui_->numberSpin->value() + 1);
+	double unitHeight = (ui_->canvasPanel->height() - 20) / (ui_->numberSpin->value() + 1);
 	for (int i = 0; i < ui_->numberSpin->value(); i++)
 	{
 		int value = list_[i];
@@ -48,15 +49,7 @@ void VisualizeSort::paintEvent(QPaintEvent* event)
 	}
 	if (isStarted_)
 	{
-		class SleepThread : public QThread
-		{
-		public:
-			static void Sleep(int time)
-			{
-				QThread::msleep(time);
-			}
-		};
-		SleepThread::Sleep(ui_->timeSpin->value());
+
 	}
 	painter.end();
 }

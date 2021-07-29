@@ -1,6 +1,7 @@
 ﻿#pragma warning (disable:6385)
 #include "Sort.h"
-Sort::Sort(QObject* parent) : QObject(parent)
+#include "Sleep Thread.h"
+Sort::Sort(QObject* parent) : QObject(parent), time_(0)
 {
 }
 void Sort::BubbleSort(ElemList<int>& list)
@@ -12,9 +13,11 @@ void Sort::BubbleSort(ElemList<int>& list)
 			if (list[j] > list[j + 1])
 			{
 				emit RepaintSignal(j, j + 1, true);
+				SleepThread::Sleep(time_);
 				list.Swap(j, j + 1);
 			}
 			emit RepaintSignal(j, j + 1);
+			SleepThread::Sleep(time_);
 		}
 	}
 }
@@ -28,10 +31,12 @@ void Sort::OptimizedBubbleSort(ElemList<int>& list)
 			if (list[j] > list[j + 1])
 			{
 				emit RepaintSignal(j, j + 1, true);
+				SleepThread::Sleep(time_);
 				list.Swap(j, j + 1);
 				isSwaped = true;
 			}
 			emit RepaintSignal(j, j + 1);
+			SleepThread::Sleep(time_);
 		}
 		if (!isSwaped)
 		{
@@ -51,26 +56,29 @@ void Sort::CockTailSort(ElemList<int>& list)
 			if (list[j] > list[j + 1])
 			{
 				emit RepaintSignal(j, j + 1, true);
+				SleepThread::Sleep(time_);
 				list.Swap(j, j + 1);
 				isSwaped = true;
 			}
 			emit RepaintSignal(j, j + 1);
+			SleepThread::Sleep(time_);
 		}
 		if (!isSwaped)
 		{
 			break;
 		}
 		isSwaped = false;
-		for (int j = list.GetLength() - i - 1; j > i; j--)
+		for (int j = list.GetLength() - i - 2; j > i; j--)
 		{
 			if (list[j] < list[j - 1])
 			{
 				emit RepaintSignal(j, j - 1, true);
+				SleepThread::Sleep(time_);
 				list.Swap(j, j - 1);
-				emit RepaintSignal(j, j - 1);
 				isSwaped = true;
 			}
 			emit RepaintSignal(j, j - 1);
+			SleepThread::Sleep(time_);
 		}
 		if (!isSwaped)
 		{
@@ -250,6 +258,14 @@ void Sort::MergeSort(ElemList<int>& list)
 		}
 		intervalLength *= 2;
 	}
+}
+void Sort::SetTime(int time)
+{
+	if (time < 0)
+	{
+		throw std::string("范围错误");
+	}
+	time_ = time;
 }
 void Sort::QuickSort(ElemList<int>& list, int low, int high)
 {
