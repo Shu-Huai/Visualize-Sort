@@ -11,9 +11,11 @@ VisualizeSort::VisualizeSort(int maxLength, QWidget* parent) : QMainWindow(paren
 	connect(ui_->initializeButton, SIGNAL(clicked()), this, SLOT(RandomInitialize()));
 	connect(ui_->startButton, SIGNAL(clicked()), this, SLOT(StartSort()));
 	connect(&sort_, SIGNAL(RepaintSignal(int, int, bool)), this, SLOT(RepaintSlot(int, int, bool)));
+	connect(&sort_, SIGNAL(RepaintSignal(bool, int, int, bool)), this, SLOT(RepaintSlot(bool, int, int, bool)));
 	connect(ui_->timeSpin, SIGNAL(valueChanged(int)), &sort_, SLOT(SetTime(int)));
 	list_ = ElemList<int>(ui_->numberSpin->value(), maxLength_);
 	sort_.SetTime(ui_->timeSpin->value());
+	referenceValue_ = -1;
 }
 VisualizeSort::~VisualizeSort()
 {
@@ -26,13 +28,13 @@ void VisualizeSort::paintEvent(QPaintEvent* event)
 	painter.begin(this);
 	double unitWidth = (ui_->canvasPanel->width() - 20) / (ui_->numberSpin->value() + 1);
 	double unitHeight = (ui_->canvasPanel->height() - 20) / (ui_->numberSpin->value() + 1);
+	QColor color(0, 0, 0);
 	for (int i = 0; i < ui_->numberSpin->value(); i++)
 	{
 		int value = list_[i];
-		QColor color(0, 0, 0);
 		if (isStarted_ && (i == firstIndex_ || i == secondIndex_))
 		{
-			if (neededSwap_)
+			if (needSwap_)
 			{
 				color.setRgb(250, 170, 0);
 			}
@@ -47,9 +49,21 @@ void VisualizeSort::paintEvent(QPaintEvent* event)
 		}
 		painter.fillRect(20 + unitWidth * i, ui_->canvasPanel->height() - unitHeight * value, unitWidth - 1, unitHeight * value, color);
 	}
-	if (isStarted_)
+	if (referenceValue_ != -1)
 	{
-
+		if (needGray_)
+		{
+			color.setRgb(100, 100, 100);
+		}
+		else if (needSwap_)
+		{
+			color.setRgb(250, 170, 0);
+		}
+		else
+		{
+			color.setRgb(0, 200, 0);
+		}
+		painter.fillRect(20 + unitWidth * ui_->numberSpin->value(), ui_->canvasPanel->height() - unitHeight * referenceValue_, unitWidth - 1, unitHeight * referenceValue_, color);
 	}
 	painter.end();
 }
@@ -110,11 +124,22 @@ void VisualizeSort::StartSort()
 	ui_->initializeButton->setEnabled(true);
 	repaint();
 }
-void VisualizeSort::RepaintSlot(int firstIndex, int secondIndex, bool neededSwap)
+void VisualizeSort::RepaintSlot(int firstIndex, int secondIndex, bool needSwap)
 {
 	firstIndex_ = firstIndex;
 	secondIndex_ = secondIndex;
-	neededSwap_ = neededSwap;
+	needSwap_ = needSwap;
 	QCoreApplication::processEvents();
 	repaint();
+}
+void VisualizeSort::RepaintSlot(bool needGray, int index, int referenceValue, bool needSwap)
+{
+	firstIndex_ = index;
+	secondIndex_ = -1;
+	referenceValue_ = referenceValue;
+	needGray_ = needGray;
+	needSwap_ = needSwap;
+	QCoreApplication::processEvents();
+	repaint();
+	referenceValue_ = -1;
 }

@@ -96,19 +96,21 @@ void Sort::StraightInsertSort(ElemList<int>& list)
 	{
 		int j = i - 1;
 		int temp = list[i];
-		emit RepaintSignal(i, -1);
+		emit RepaintSignal(true, i, temp, true);
+		SleepThread::Sleep(time_);
 		for (j = i - 1; j >= 0; j--)
 		{
 			if (list[j] <= temp)
 			{
-				emit RepaintSignal(j, -1);
+				emit RepaintSignal(false, j, temp);
+				SleepThread::Sleep(time_);
 				break;
 			}
-			emit RepaintSignal(j, -1, true);
+			emit RepaintSignal(false, j, temp, true);
+			SleepThread::Sleep(time_);
 			list[j + 1] = list[j];
 		}
 		list[j + 1] = temp;
-		emit RepaintSignal(-1, -1);
 	}
 }
 void Sort::BinaryInsertSort(ElemList<int>& list)
@@ -119,28 +121,32 @@ void Sort::BinaryInsertSort(ElemList<int>& list)
 		int high = i - 1;
 		int middle = 0;
 		int key = list[i];
-		emit RepaintSignal(i, -1);
 		while (low <= high)
 		{
 			middle = (low + high) / 2;
-			emit RepaintSignal(middle, -1);
 			if (list[middle] > key)
 			{
-				emit RepaintSignal(middle, -1, true);
 				high = middle - 1;
 			}
 			else if (list[middle] < key)
 			{
-				emit RepaintSignal(middle, -1, true);
 				low = middle + 1;
 			}
+			if (low <= high)
+			{
+				emit RepaintSignal(middle, i, true);
+			}
+			else
+			{
+				emit RepaintSignal(middle, i, false);
+			}
+			SleepThread::Sleep(time_);
 		}
 		for (int j = i - 1; j >= low; j--)
 		{
 			list[j + 1] = list[j];
 		}
 		list[low] = key;
-		emit RepaintSignal(-1, -1);
 	}
 }
 void Sort::ShellSort(ElemList<int>& list)
