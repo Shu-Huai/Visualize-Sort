@@ -212,6 +212,7 @@ void Sort::MonkeySort(ElemList<int>& list)
 	{
 		list.RandomOrder();
 		emit RepaintSignal(-1, -1);
+		SleepThread::Sleep(time_);
 		isSorted = list.IsSorted();
 	}
 }
