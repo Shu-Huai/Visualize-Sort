@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include <QThread>
 class SleepThread : public QThread
 {

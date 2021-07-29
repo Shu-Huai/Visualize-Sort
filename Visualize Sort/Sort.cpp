@@ -186,7 +186,8 @@ void Sort::CountSort(ElemList<int>& list)
 			{
 				continue;
 			}
-			emit RepaintSignal(i, j);
+			emit RepaintSignal(i, j, true);
+			SleepThread::Sleep(time_);
 			if (list[j] < list[i])
 			{
 				indexes[i]++;

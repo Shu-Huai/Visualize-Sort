@@ -1,4 +1,4 @@
-#include "Sleep Thread.h"
+﻿#include "Sleep Thread.h"
 void SleepThread::Sleep(int time)
 {
 	QThread::msleep(time);

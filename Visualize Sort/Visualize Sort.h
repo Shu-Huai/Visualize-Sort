@@ -6,7 +6,7 @@ class VisualizeSort : public QMainWindow
 {
 	Q_OBJECT
 public:
-	VisualizeSort(int maxLength, QWidget* parent = NULL);
+	VisualizeSort(int maxLength, QWidget* parent = nullptr);
 	~VisualizeSort();
 	void paintEvent(QPaintEvent* event);
 public slots:

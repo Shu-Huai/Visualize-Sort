@@ -1,12 +1,11 @@
 ﻿#pragma once
-#include <iostream>
 #include <QObject>
 #include "Elem List.cpp"
 class Sort :public QObject
 {
 	Q_OBJECT
 public:
-	Sort(QObject* parent = NULL);
+	Sort(QObject* parent = nullptr);
 	void BubbleSort(ElemList<int>& list);
 	void OptimizedBubbleSort(ElemList<int>& list);
 	void CockTailSort(ElemList<int>& list);
