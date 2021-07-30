@@ -8,7 +8,7 @@ class VisualizeSort : public QMainWindow
 public:
 	VisualizeSort(int maxLength, QWidget* parent = nullptr);
 	~VisualizeSort();
-	void paintEvent(QPaintEvent* event);
+	void paintEvent(QPaintEvent*);
 public slots:
 	void RandomInitialize();
 	void StartSort();

@@ -1,21 +1,22 @@
 ﻿#include "Visualize Sort.h"
 #include <QPainter>
-VisualizeSort::VisualizeSort(int maxLength, QWidget* parent) : QMainWindow(parent), maxLength_(maxLength), isStarted_(false)
+VisualizeSort::VisualizeSort(int maxLength, QWidget* parent) :
+	QMainWindow(parent), maxLength_(maxLength), isStarted_(false), firstIndex_(-1), secondIndex_(-1), referenceValue_(-1), needGray_(false), needSwap_(false)
 {
 	ui_ = new Ui::VisualizeSortClass;
 	ui_->setupUi(this);
 	ui_->numberSpin->setMinimum(2);
 	ui_->numberSpin->setMaximum(maxLength_);
 	ui_->numberSpin->setKeyboardTracking(false);
+	ui_->meansCombo->setMaxVisibleItems(11);
+	list_ = ElemList<int>(ui_->numberSpin->value(), maxLength_);
+	sort_.SetTime(ui_->timeSpin->value());
 	connect(ui_->numberSpin, SIGNAL(valueChanged(int)), this, SLOT(repaint()));
 	connect(ui_->initializeButton, SIGNAL(clicked()), this, SLOT(RandomInitialize()));
 	connect(ui_->startButton, SIGNAL(clicked()), this, SLOT(StartSort()));
 	connect(&sort_, SIGNAL(RepaintSignal(int, int, bool)), this, SLOT(RepaintSlot(int, int, bool)));
 	connect(&sort_, SIGNAL(RepaintSignal(bool, int, int, bool)), this, SLOT(RepaintSlot(bool, int, int, bool)));
 	connect(ui_->timeSpin, SIGNAL(valueChanged(int)), &sort_, SLOT(SetTime(int)));
-	list_ = ElemList<int>(ui_->numberSpin->value(), maxLength_);
-	sort_.SetTime(ui_->timeSpin->value());
-	referenceValue_ = -1;
 }
 VisualizeSort::~VisualizeSort()
 {
@@ -131,6 +132,9 @@ void VisualizeSort::RepaintSlot(int firstIndex, int secondIndex, bool needSwap)
 	needSwap_ = needSwap;
 	QCoreApplication::processEvents();
 	repaint();
+	firstIndex_ = -1;
+	secondIndex_ = -1;
+	needSwap_ = false;
 }
 void VisualizeSort::RepaintSlot(bool needGray, int index, int referenceValue, bool needSwap)
 {
@@ -141,5 +145,8 @@ void VisualizeSort::RepaintSlot(bool needGray, int index, int referenceValue, bo
 	needSwap_ = needSwap;
 	QCoreApplication::processEvents();
 	repaint();
+	firstIndex_ = -1;
 	referenceValue_ = -1;
+	needGray_ = false;
+	needSwap_ = false;
 }

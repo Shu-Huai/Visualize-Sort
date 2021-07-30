@@ -46,8 +46,6 @@ void Sort::OptimizedBubbleSort(ElemList<int>& list)
 }
 void Sort::CockTailSort(ElemList<int>& list)
 {
-	int left = 0;
-	int right = list.GetLength() - 1;
 	for (int i = 0; i < list.GetLength(); i++)
 	{
 		bool isSwaped = false;
@@ -111,6 +109,8 @@ void Sort::StraightInsertSort(ElemList<int>& list)
 			list[j + 1] = list[j];
 		}
 		list[j + 1] = temp;
+		emit RepaintSignal(j + 1, -1);
+		SleepThread::Sleep(time_);
 	}
 }
 void Sort::BinaryInsertSort(ElemList<int>& list)
@@ -147,6 +147,8 @@ void Sort::BinaryInsertSort(ElemList<int>& list)
 			list[j + 1] = list[j];
 		}
 		list[low] = key;
+		emit RepaintSignal(low, -1);
+		SleepThread::Sleep(time_);
 	}
 }
 void Sort::ShellSort(ElemList<int>& list)
@@ -173,6 +175,8 @@ void Sort::ShellSort(ElemList<int>& list)
 				list[j + distance] = list[j];
 			}
 			list[j + distance] = temp;
+			emit RepaintSignal(j + distance, -1);
+			SleepThread::Sleep(time_);
 		}
 		distance /= 2;
 	}
@@ -188,7 +192,7 @@ void Sort::CountSort(ElemList<int>& list)
 			{
 				continue;
 			}
-			emit RepaintSignal(i, j, true);
+			emit RepaintSignal(i, j);
 			SleepThread::Sleep(time_);
 			if (list[j] < list[i])
 			{
@@ -228,6 +232,7 @@ void Sort::RadixSort(ElemList<int>& list)
 		{
 			counts[(list[j] / i) % 10]++;
 			emit RepaintSignal(j, -1);
+			SleepThread::Sleep(time_);
 		}
 		int* indexes = new int[10]{ 0 };
 		for (int j = 1; j < 10; j++)
@@ -241,6 +246,7 @@ void Sort::RadixSort(ElemList<int>& list)
 			result[indexes[(list[j] / i) % 10]] = list[j];
 			indexes[(list[j] / i) % 10]++;
 			emit RepaintSignal(j, -1);
+			SleepThread::Sleep(time_);
 		}
 		delete[]indexes;
 		for (int j = 0; j < list.GetLength(); j++)
@@ -248,7 +254,6 @@ void Sort::RadixSort(ElemList<int>& list)
 			list[j] = result[j];
 		}
 		delete[]result;
-		emit RepaintSignal(-1, -1);
 	}
 }
 void Sort::MergeSort(ElemList<int>& list)
@@ -299,6 +304,8 @@ void Sort::QuickSort(ElemList<int>& list, int low, int high)
 				emit RepaintSignal(false, j, referenceValue, true);
 				SleepThread::Sleep(time_);
 				list[i] = list[j];
+				emit RepaintSignal(true, j, referenceValue);
+				SleepThread::Sleep(time_);
 				i++;
 			}
 			while (i < j && list[i] <= referenceValue)
@@ -312,6 +319,8 @@ void Sort::QuickSort(ElemList<int>& list, int low, int high)
 				emit RepaintSignal(false, i, referenceValue, true);
 				SleepThread::Sleep(time_);
 				list[j] = list[i];
+				emit RepaintSignal(true, i, referenceValue);
+				SleepThread::Sleep(time_);
 				j--;
 			}
 		}
