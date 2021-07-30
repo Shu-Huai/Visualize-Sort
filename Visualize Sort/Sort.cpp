@@ -284,30 +284,34 @@ void Sort::QuickSort(ElemList<int>& list, int low, int high)
 		int referenceValue = list[low];
 		int i = low;
 		int j = high;
+		emit RepaintSignal(true, i, referenceValue, true);
+		SleepThread::Sleep(time_);
 		while (i < j)
 		{
 			while (i < j && list[j] >= referenceValue)
 			{
-				emit RepaintSignal(j, -1);
+				emit RepaintSignal(false, j, referenceValue);
+				SleepThread::Sleep(time_);
 				j--;
 			}
 			if (i < j)
 			{
-				emit RepaintSignal(j, -1, true);
+				emit RepaintSignal(false, j, referenceValue, true);
+				SleepThread::Sleep(time_);
 				list[i] = list[j];
-				emit RepaintSignal(-1, -1);
 				i++;
 			}
 			while (i < j && list[i] <= referenceValue)
 			{
-				emit RepaintSignal(i, -1);
+				emit RepaintSignal(false, i, referenceValue);
+				SleepThread::Sleep(time_);
 				i++;
 			}
 			if (i < j)
 			{
-				emit RepaintSignal(i, -1, true);
+				emit RepaintSignal(false, i, referenceValue, true);
+				SleepThread::Sleep(time_);
 				list[j] = list[i];
-				emit RepaintSignal(-1, -1);
 				j--;
 			}
 		}
