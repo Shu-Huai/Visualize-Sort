@@ -22,7 +22,7 @@ VisualizeSort::~VisualizeSort()
 {
 	delete ui_;
 }
-void VisualizeSort::paintEvent(QPaintEvent* event)
+void VisualizeSort::paintEvent(QPaintEvent*)
 {
 	list_.SetLength(ui_->numberSpin->value());
 	QPainter painter(this);
