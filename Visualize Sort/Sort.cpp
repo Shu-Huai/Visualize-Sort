@@ -333,7 +333,7 @@ void Sort::Merge(ElemList<int>& list, int low, int middle, int high)
 	while (i <= middle && j <= high)
 	{
 		emit RepaintSignal(i, j);
-		emit RepaintSignal(i, j, true);
+		SleepThread::Sleep(time_);
 		if (list[i] <= list[j])
 		{
 			result[k] = list[i];
@@ -349,7 +349,7 @@ void Sort::Merge(ElemList<int>& list, int low, int middle, int high)
 	while (i <= middle)
 	{
 		emit RepaintSignal(i, -1);
-		emit RepaintSignal(i, -1, true);
+		SleepThread::Sleep(time_);
 		result[k] = list[i];
 		k++;
 		i++;
@@ -357,7 +357,7 @@ void Sort::Merge(ElemList<int>& list, int low, int middle, int high)
 	while (j <= high)
 	{
 		emit RepaintSignal(-1, j);
-		emit RepaintSignal(-1, j, true);
+		SleepThread::Sleep(time_);
 		result[k] = list[j];
 		k++;
 		j++;
@@ -366,5 +366,4 @@ void Sort::Merge(ElemList<int>& list, int low, int middle, int high)
 	{
 		list[k] = result[k];
 	}
-	emit RepaintSignal(-1, -1);
 }
